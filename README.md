@@ -1,1 +1,1 @@
-# pyvisual2darray
+# gui2darray
