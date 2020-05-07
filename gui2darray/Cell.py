@@ -1,11 +1,11 @@
 from tkinter import *
 
 class Cell(Canvas):
-    def __init__(self, master, r, c):
+    def __init__(self, master, row, col, size, pad):
         self._bg = "red"
         self._image = None
-        super().__init__(master, width=100, height=100, bg=self._bg, bd=0, highlightthickness=0,)
-        self.grid(row=r, column=c)
+        super().__init__(master, width=size[0], height=size[1], bg=self._bg, highlightthickness=0)
+        self.grid(row=row, column=col, padx=(pad, 0), pady=(pad, 0))
 
     @property
     def bg(self):
