@@ -7,4 +7,6 @@ try:
 except ImportError:
     from Tkinter import Tk
 
+from .Board import Board
 from .Cell import Cell
+from .ImageMap import ImageMap

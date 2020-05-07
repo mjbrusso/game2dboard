@@ -1,12 +1,11 @@
-from tkinter import Canvas, PhotoImage
-import os, sys
+from tkinter import *
 
 class Cell(Canvas):
-    def __init__(self, master):
+    def __init__(self, master, r, c):
         self._bg = "red"
         self._image = None
-        super().__init__(master, width=200, height=200, bg=self._bg)
-        self.pack(pady=10, padx=10)
+        super().__init__(master, width=100, height=100, bg=self._bg, bd=0, highlightthickness=0,)
+        self.grid(row=r, column=c)
 
     @property
     def bg(self):
@@ -30,7 +29,4 @@ class Cell(Canvas):
     @image.setter
     def image(self, value):
         self.delete("ALL")
-        # TODO: save path
-        fname = os.path.dirname(os.path.realpath(sys.argv[0])) + "/" + value
-        self._image = PhotoImage(file=fname)
-        self.create_image(50, 50, image=self._image)  
+        self.create_image(50, 50, image=value)  
