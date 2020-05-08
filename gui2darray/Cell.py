@@ -1,11 +1,30 @@
 from tkinter import *
 
+
 class Cell(Canvas):
-    def __init__(self, master, row, col, size, pad):
-        self._bg = "red"
-        self._image = None
-        super().__init__(master, width=size[0], height=size[1], bg=self._bg, highlightthickness=0)
-        self.grid(row=row, column=col, padx=(pad, 0), pady=(pad, 0))
+    def __init__(self, master, row, col, size, padx, pady):
+        self._bg = "white"  # default background color
+        self._image = None  # PhotoImage
+        self._value = 0     # this value
+        # Canvas constructor:
+        super().__init__(
+            master,
+            width=size[0],
+            height=size[1],
+            bg=self._bg,
+            highlightthickness=0)        
+        self.grid(row=row, column=col, padx=(padx, 0), pady=(pady, 0))
+
+    @property
+    def value(self):
+        """
+        Gets or sets the cell value.
+        """
+        return self._value
+
+    @value.setter
+    def value(self, v):
+        self._value = v
 
     @property
     def bg(self):
@@ -28,5 +47,8 @@ class Cell(Canvas):
 
     @image.setter
     def image(self, value):
-        self.delete("ALL")
-        self.create_image(50, 50, image=value)  
+        self.delete("ALL")              # clear Canvas
+        w = self.winfo_width() // 2     # horizontal center
+        h = self.winfo_height() // 2    # vertical center
+        # Show image @ canvas center
+        self.create_image(w, h, anchor=CENTER, image=value)

@@ -1,18 +1,19 @@
 from tkinter import *
 import gui2darray
 
+
 class Board():
     def __init__(self, nrows, ncols):
+        self._isrunning = False
         self._nrows = nrows
-        self._ncols = ncols
+        self._ncols = ncols        
         self._cells = []
-        self._title = "GUI2DArray"
-        self._padding = 5
-        self._bgcolor = "#CCC"
-        self._cell_size = (50, 50)
+        self._title = "GUI2DArray"  # Default window title
+        self._padding = 5           # grid spacing
+        self._bgcolor = "#CCC"      # default background color
+        self._cell_size = (50, 50)  # (w, h)
         self._images = gui2darray.ImageMap()
         self._root = Tk()
-        self._root.resizable(False, False)        
 
     @property
     def title(self):
@@ -35,7 +36,10 @@ class Board():
 
     @padding.setter
     def padding(self, value):
+        if self._isrunning:
+            raise Exception("Can't update padding after run()")
         self._padding = value
+        self._root.configure(padx=self._padding, pady=self._padding)
 
     @property
     def bgcolor(self):
@@ -47,6 +51,7 @@ class Board():
     @bgcolor.setter
     def bgcolor(self, value):
         self._bgcolor = value
+        self._root.configure(bg=self._bgcolor)
 
     @property
     def cell_size(self):
@@ -57,24 +62,41 @@ class Board():
 
     @cell_size.setter
     def cell_size(self, value):
+        if self._isrunning:
+            raise Exception("Can't resize cells after run()")
+        # cell size is a tuple(w, h)
         if not type(value) is tuple:
             v = int(value)
             value = (v, v)
         self._cell_size = value
 
+    def __getitem__(self, x):
+        return self._cells[x]
+        # https://stackoverflow.com/questions/10727080/how-does-one-override-the-setitem-method-for-possibly-multidimensional-arr
 
     def run(self):
-        self.draw()
+        self.setupUI()
+        self._root.update()
+        self._cells[0][0].image = self._images[12]
+        self._cells[1][2].image = self._images[16]
+        self._isrunning = True
+
+        print(self[0][0].bg)
         self._root.mainloop()
 
     def root(self):
         return self._root
 
-    def draw(self):
-        self._root.configure(bg=self._bgcolor, padx=self._padding, pady=self._padding)
-        self.title = self._title
+    def setupUI(self):
+        self._root.resizable(False, False)  # Window is not resizable        
+        self.bgcolor = self._bgcolor        # Paint background
+        self.padding = self._padding        # Change root's padx/y
+        self.title = self._title            # Update window's title
         for r in range(self._nrows):
+            self._cells.append([])
+            pady = r and self._padding      # no y margin in first row (root has top margin)
             for c in range(self._ncols):
-                newcell = gui2darray.Cell(self._root, r, c, self._cell_size, self._padding)
-                newcell.image = self._images[12]
-                # self._cells.append(newcell)
+                padx = c and self._padding  # no x margin in first collumn (root has left margin)
+                newcell = gui2darray.Cell(
+                    self._root, r, c, self._cell_size, padx, pady)
+                self._cells[r].append(newcell)

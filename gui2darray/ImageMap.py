@@ -3,10 +3,10 @@ import sys
 from tkinter import PhotoImage
 
 class ImageMap():
-    __imgpath = os.path.dirname(os.path.realpath(sys.argv[0])) + "/img/"
+    __imgpath = os.path.dirname(os.path.realpath(sys.argv[0])) + "/img/" # Script path
 
     def __init__(self):
-        self._dict = {}
+        self._dict = {}     
 
     def __setitem__(self, key, value):
         if not key in self._dict:
