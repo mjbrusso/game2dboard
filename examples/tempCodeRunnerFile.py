@@ -1,1 +1,1 @@
-cell_size
+white

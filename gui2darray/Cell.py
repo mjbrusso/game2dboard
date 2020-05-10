@@ -3,7 +3,6 @@ from tkinter import *
 
 class Cell(Canvas):
     def __init__(self, master, row, col, size, padx, pady):
-        self._bg = "white"  # default background color
         self._image = None  # PhotoImage
         self._value = 0     # this value
         # Canvas constructor:
@@ -11,7 +10,6 @@ class Cell(Canvas):
             master,
             width=size[0],
             height=size[1],
-            bg=self._bg,
             highlightthickness=0)        
         self.grid(row=row, column=col, padx=(padx, 0), pady=(pady, 0))
 
