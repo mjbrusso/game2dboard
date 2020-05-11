@@ -17,8 +17,7 @@ class Board(Frame):
         self._cell_size = (50, 50)            # (w, h: px)
         self._images = gui2darray.ImageMap()
         self._root = Tk()
-        self._table = Frame(self._root)       # cell's container
-        self._table.pack()
+        self._canvas = Canvas(self._root, highlightthickness=0)       # cell's container
 
     @property
     def title(self):
@@ -58,6 +57,7 @@ class Board(Frame):
         if self._isrunning:
             raise Exception("Can't update cell_spacing after run()")
         self._cell_spacing = value
+        self.resize()
 
     @property
     def margin_color(self):
@@ -94,7 +94,7 @@ class Board(Frame):
     @grid_color.setter
     def grid_color(self, value):
         self._grid_color = value
-        self._table.configure(bg=value)
+        self._canvas.configure(bg=value)
 
 
     @property
@@ -113,6 +113,7 @@ class Board(Frame):
             v = int(value)
             value = (v, v)
         self._cell_size = value
+        self.resize()
 
     def __getitem__(self, x):
         return self._cells[x]
@@ -120,14 +121,19 @@ class Board(Frame):
 
     def run(self):
         self.setupUI()
+        self._canvas.pack()
         self._root.update()
-        self._cells[0][0].image = self._images[12]
-        self._cells[1][2].image = self._images[16]
+        #self._cells[0][0].image = self._images[12]
+        # self._cells[1][2].image = self._images[16]
         self._isrunning = True
         self._root.mainloop()
 
     def root(self):
         return self._root
+
+    def resize(self):
+        self._canvas.config(width=self._ncols*(self.cell_size[0]+self.cell_spacing)-1,
+                            height=self._nrows*(self.cell_size[1]+self.cell_spacing)-1)
 
     def setupUI(self):
         self._root.resizable(False, False)            # Window is not resizable
@@ -144,7 +150,11 @@ class Board(Frame):
             for c in range(self._ncols):
                 # no x margin in first collumn (root has left margin)
                 padx = c and self._cell_spacing
-                newcell = gui2darray.Cell(
-                    self._table, r, c, self._cell_size, padx, pady)
-                newcell.bg = self.cell_color
+                #newcell = gui2darray.Cell(
+                #    self._canvas, r, c, self._cell_size, padx, pady)
+                #newcell.bg = self.cell_color
+                x = c*(self.cell_size[0]+self.cell_spacing)
+                y = r*(self.cell_size[1]+self.cell_spacing)
+                newcell = gui2darray.Cell(self._canvas, x, y, self.cell_size)
+                newcell.bg = self._cell_color
                 self._cells[r].append(newcell)

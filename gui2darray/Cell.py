@@ -1,17 +1,26 @@
 from tkinter import *
 
 
-class Cell(Canvas):
-    def __init__(self, master, row, col, size, padx, pady):
+class Cell():
+    def __init__(self, parent, x, y, size):
         self._image = None  # PhotoImage
         self._value = 0     # this value
-        # Canvas constructor:
-        super().__init__(
-            master,
-            width=size[0],
-            height=size[1],
-            highlightthickness=0)        
-        self.grid(row=row, column=col, padx=(padx, 0), pady=(pady, 0))
+        self._size =  size
+        self._parent = parent    
+        self._id = parent.create_rectangle(
+            x,
+            y,
+            x+size[0],
+            y+size[1],
+            width=0
+        )
+
+    @property
+    def id(self):
+        """
+        Gets or sets the rectangle id
+        """
+        return self._id
 
     @property
     def value(self):
@@ -34,7 +43,7 @@ class Cell(Canvas):
     @bg.setter
     def bg(self, value):
         self._bg = value
-        self.configure(background=self._bg)
+        self._parent.itemconfig(self._id, fill=value)
 
     @property
     def image(self):
@@ -45,8 +54,8 @@ class Cell(Canvas):
 
     @image.setter
     def image(self, value):
-        self.delete("ALL")              # clear Canvas
-        w = self.winfo_width() // 2     # horizontal center
-        h = self.winfo_height() // 2    # vertical center
+        #self.delete("ALL")              # clear Canvas
+        w = self._size[0] // 2     # horizontal center
+        h = self._size[1] // 2    # vertical center
         # Show image @ canvas center
-        self.create_image(w, h, anchor=CENTER, image=value)
+        # self.create_image(w, h, anchor=CENTER, image=value)
