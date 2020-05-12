@@ -1,23 +1,40 @@
 from tkinter import *
 import gui2darray
+from collections import UserList
 
 
-class Board(Frame):
+class Board(UserList):
     def __init__(self, nrows, ncols):
+        UserList.__init__(self)             # Initialize parent class
+        # Create list [ncols][nrows]
+        self.extend([self.BoardRow(ncols, self) for _ in range(nrows)])
+
         self._isrunning = False
         self._nrows = nrows
         self._ncols = ncols
-        self._cells = []
+        # Array used to store cells elements (rectangles)
+        self._cells = [[None] * ncols for _ in range(nrows)]
         self._title = "GUI2DArray"            # Default window title
         self._margin = 5                      # board margin (px)
-        self._cell_spacing = 3                # grid cell_spacing (px)
+        self._cell_spacing = 1                # grid cell_spacing (px)
         self._margin_color = "light grey"     # default border color
         self._cell_color = "white"            # default cell color
-        self._grid_color = "black"            # default grid color        
+        self._grid_color = "black"            # default grid color
         self._cell_size = (50, 50)            # (w, h: px)
-        self._images = gui2darray.ImageMap()
+        self._images = gui2darray.ImageMap()  # Images cache and dictionary
         self._root = Tk()
-        self._canvas = Canvas(self._root, highlightthickness=0)       # cell's container
+        # cell's container
+        self._canvas = Canvas(self._root, highlightthickness=0)
+        # event bindings
+        self._on_key = None
+        self._root.bind("<Key>", self._key)
+        #self._root.bind("<ButtonPress>", self._button_down)
+
+    def __getitem__(self, row):           # subscript getter
+        self.BoardRow.current_i = row       # Store last accessed row
+        return super().__getitem__(row)   # return a BoardRow
+
+    # Properties
 
     @property
     def title(self):
@@ -57,7 +74,7 @@ class Board(Frame):
         if self._isrunning:
             raise Exception("Can't update cell_spacing after run()")
         self._cell_spacing = value
-        self.resize()
+        self._resize()
 
     @property
     def margin_color(self):
@@ -81,8 +98,11 @@ class Board(Frame):
     @cell_color.setter
     def cell_color(self, value):
         self._cell_color = value
-        for c in self._cells:
-            c.bg = value
+        # Update bgcolor for all cells
+        if self._isrunning:
+            for row in self._cells:
+                for cell in row:
+                    cell.bg = value
 
     @property
     def grid_color(self):
@@ -96,7 +116,6 @@ class Board(Frame):
         self._grid_color = value
         self._canvas.configure(bg=value)
 
-
     @property
     def cell_size(self):
         """
@@ -108,53 +127,88 @@ class Board(Frame):
     def cell_size(self, value):
         if self._isrunning:
             raise Exception("Can't resize cells after run()")
-        # cell size is a tuple(w, h)
+        # cell_size is a tuple (width, height)
         if not type(value) is tuple:
             v = int(value)
             value = (v, v)
         self._cell_size = value
-        self.resize()
+        self._resize()
 
-    def __getitem__(self, x):
-        return self._cells[x]
-        # https://stackoverflow.com/questions/10727080/how-does-one-override-the-setitem-method-for-possibly-multidimensional-arr
+    # Methods
 
-    def run(self):
+    def run(self):              # Show and start running
         self.setupUI()
-        self._canvas.pack()
-        self._root.update()
-        #self._cells[0][0].image = self._images[12]
-        # self._cells[1][2].image = self._images[16]
         self._isrunning = True
         self._root.mainloop()
 
-    def root(self):
-        return self._root
-
-    def resize(self):
+    def _resize(self):
         self._canvas.config(width=self._ncols*(self.cell_size[0]+self.cell_spacing)-1,
                             height=self._nrows*(self.cell_size[1]+self.cell_spacing)-1)
+
+    # Translate [r][c] to canvas x and y
+    def rc2yx(self, row, col):
+        y = row*(self.cell_size[1]+self.cell_spacing)
+        x = col*(self.cell_size[0]+self.cell_spacing)
+        return (y, x)
 
     def setupUI(self):
         self._root.resizable(False, False)            # Window is not resizable
         self.margin_color = self._margin_color        # Paint background
-        self.grid_color = self._grid_color
-        self.cell_color = self._cell_color
+        self.grid_color = self._grid_color            # Table inner lines
+        self.cell_color = self._cell_color            # Cells background
+        self.cell_size = self._cell_size              # (width, height)
         self.margin = self._margin                    # Change root's margin
         self.cell_spacing = self._cell_spacing        # Change root's padx/y
         self.title = self._title                      # Update window's title
+        # Create all cells
         for r in range(self._nrows):
-            self._cells.append([])
-            # no y margin in first row (root has top margin)
-            pady = r and self._cell_spacing
             for c in range(self._ncols):
-                # no x margin in first collumn (root has left margin)
-                padx = c and self._cell_spacing
-                #newcell = gui2darray.Cell(
-                #    self._canvas, r, c, self._cell_size, padx, pady)
-                #newcell.bg = self.cell_color
-                x = c*(self.cell_size[0]+self.cell_spacing)
-                y = r*(self.cell_size[1]+self.cell_spacing)
+                y, x = self.rc2yx(r, c)
                 newcell = gui2darray.Cell(self._canvas, x, y, self.cell_size)
-                newcell.bg = self._cell_color
-                self._cells[r].append(newcell)
+                newcell.bgcolor = self._cell_color
+                self._cells[r][c] = newcell
+                if self[r][c] != None:
+                    self.notify_change(r, c, self[r][c])
+
+        self._canvas.pack()
+        self._root.update()
+
+    def close(self):
+        self._root.quit()
+
+    # Events
+
+    def notify_change(self, row, col, new_value):
+        print(row, col, new_value)
+        if self._cells[row][col] != None:
+            self._cells[row][col].image = self._images[new_value]
+
+    # Keyboard events
+
+    @property
+    def on_key(self):
+        return self._on_key
+
+    @on_key.setter
+    def on_key(self, value):
+        self._on_key = value
+
+    def _key(self, ev):
+        if callable(self.on_key):
+            self.on_key(ev.keysym)
+
+    # Inner class
+    # A row is a list, so I can use the magic function __setitem__(board[i][j])
+    class BoardRow(UserList):
+        def __init__(self, size, parent):
+            UserList.__init__(self)
+            self.extend([None] * size)         # Initialize the row
+            self._parent = parent           # the board
+            # Last acessed row (class member).
+            # Yes, its not thread safe!
+            # Maybe in the future I will use a proxy class
+            current_i = None
+
+        def __setitem__(self, j, value):
+            self._parent.notify_change(self._parent.BoardRow.current_i, j, value)
+            return super().__setitem__(j, value)

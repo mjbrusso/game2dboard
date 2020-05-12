@@ -1,12 +1,21 @@
 from gui2darray import Board
 
-b = Board(70, 70)
-b.title = "Hello, World!"
-b.margin = 5
-b.cell_spacing = 2
-b.cell_size = (15, 8)
-b.margin_color = "AntiqueWhite3"      # See color names in http://www.science.smith.edu/dftwiki/index.php/Color_Charts_for_TKinter
-b.cell_color = "AntiqueWhite1"
-b.grid_color = "AntiqueWhite3"
 
+def kbdfn(key):
+    print(key)
+    if key == "Escape":                      # http://www.tcl.tk/man/tcl8.4/TkCmd/keysyms.htm
+        b.close()
+
+
+b = Board(10, 10)
+b.title = "Hello, World!"
+b.margin = 7
+b.cell_spacing = 1
+b.cell_size = (40, 40)
+# See color names in http://www.science.smith.edu/dftwiki/index.php/Color_Charts_for_TKinter
+b.margin_color = "AntiqueWhite4"
+b.cell_color = "AntiqueWhite1"
+b.grid_color = "AntiqueWhite4"
+b[3][3] = b[0][2] = 160
+b.on_key = kbdfn
 b.run()
