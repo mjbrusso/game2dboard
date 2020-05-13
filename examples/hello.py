@@ -16,6 +16,6 @@ b.cell_size = (40, 40)
 b.margin_color = "AntiqueWhite4"
 b.cell_color = "AntiqueWhite1"
 b.grid_color = "AntiqueWhite4"
-b[3][3] = b[0][2] = 160
+b[0][2] = b[4][1] = 160
 b.on_key = kbdfn
 b.run()

@@ -21,7 +21,6 @@ class Board(UserList):
         self._cell_color = "white"            # default cell color
         self._grid_color = "black"            # default grid color
         self._cell_size = (50, 50)            # (w, h: px)
-        self._images = gui2darray.ImageMap()  # Images cache and dictionary
         self._root = Tk()
         # cell's container
         self._canvas = Canvas(self._root, highlightthickness=0)
@@ -167,8 +166,8 @@ class Board(UserList):
                 newcell = gui2darray.Cell(self._canvas, x, y, self.cell_size)
                 newcell.bgcolor = self._cell_color
                 self._cells[r][c] = newcell
-                if self[r][c] != None:
-                    self.notify_change(r, c, self[r][c])
+                if self[r][c] != None:                      # Cell already has a value
+                    self.notify_change(r, c, self[r][c])    # show it
 
         self._canvas.pack()
         self._root.update()
@@ -179,9 +178,8 @@ class Board(UserList):
     # Events
 
     def notify_change(self, row, col, new_value):
-        print(row, col, new_value)
         if self._cells[row][col] != None:
-            self._cells[row][col].image = self._images[new_value]
+            self._cells[row][col].value = new_value
 
     # Keyboard events
 
@@ -200,15 +198,16 @@ class Board(UserList):
     # Inner class
     # A row is a list, so I can use the magic function __setitem__(board[i][j])
     class BoardRow(UserList):
+        # Last acessed row (class member).
+        # Yes, its not thread safe!
+        # Maybe in the future I will use a proxy class
+        current_i = None
+
         def __init__(self, size, parent):
             UserList.__init__(self)
             self.extend([None] * size)         # Initialize the row
             self._parent = parent           # the board
-            # Last acessed row (class member).
-            # Yes, its not thread safe!
-            # Maybe in the future I will use a proxy class
-            current_i = None
 
         def __setitem__(self, j, value):
-            self._parent.notify_change(self._parent.BoardRow.current_i, j, value)
+            self._parent.notify_change(self.__class__.current_i, j, value)
             return super().__setitem__(j, value)

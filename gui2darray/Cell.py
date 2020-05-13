@@ -1,16 +1,15 @@
 from tkinter import *
+import gui2darray
 
-
-class Cell():
+class Cell():  
     def __init__(self, parent, x, y, size):
-        self._image = None      # PhotoImage
         self._image_id = None   # tkinter id from create_image
-        self._value = 0         # this value
+        self._value = None         # this value
         self._parent = parent  
         self._x = x  
         self._y = y
         self._bgcolor = "white"
-        self._size =  size    
+        self._size =  size 
         self._id = parent.create_rectangle(
             x,
             y,
@@ -18,7 +17,7 @@ class Cell():
             y+size[1],
             width=0
         )
-
+    
     @property
     def id(self):
         """
@@ -35,7 +34,15 @@ class Cell():
 
     @value.setter
     def value(self, v):
-        self._value = v
+        if self._value != v:        # Only update when value change
+            self._value = v
+            img = gui2darray.ImageMap.get_instance()[v]
+            if self._image_id:
+                self._parent.delete(self._image_id)    # clear current image
+            hc = self._x + self.width // 2     # horizontal center
+            vc = self._y + self.height // 2    # vertical center
+            # Show image @ canvas center
+            self._image_id = self._parent.create_image(hc, vc, anchor=CENTER, image=img)
 
     @property
     def bgcolor(self):
@@ -50,25 +57,8 @@ class Cell():
         self._parent.itemconfig(self._id, fill=value)
 
     @property
-    def image(self):
-        """
-        Gets or sets the cell image.
-        """
-        return self._image
-
-    @image.setter
-    def image(self, value):        
-        if self._image_id:
-            self.delete(self._image_id)    # clear current image
-        hc = self._x + self.width // 2     # horizontal center
-        vc = self._y + self.height // 2    # vertical center
-        # Show image @ canvas center
-        self._image_id = self._parent.create_image(hc, vc, anchor=CENTER, image=value)
-
-    @property
     def width(self):
          return self._size[0]
-
 
     @property
     def height(self):
