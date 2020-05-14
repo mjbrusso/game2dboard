@@ -1,6 +1,9 @@
 from tkinter import *
 import gui2darray
+import random
 from collections import UserList
+
+# TODO: .fill(), .on_mouse_click(), .on_timer(), MessageBar
 
 
 class Board(UserList):
@@ -20,14 +23,14 @@ class Board(UserList):
         self._margin_color = "light grey"     # default border color
         self._cell_color = "white"            # default cell color
         self._grid_color = "black"            # default grid color
-        self._cell_size = (50, 50)            # (w, h: px)
         self._root = Tk()
         # cell's container
         self._canvas = Canvas(self._root, highlightthickness=0)
         # event bindings
-        self._on_key = None
-        self._root.bind("<Key>", self._key)
+        self._on_key_press = None
+        self._root.bind("<Key>", self._key_press)
         #self._root.bind("<ButtonPress>", self._button_down)
+        self.cell_size = (50, 50)            # (w, h: px)
 
     def __getitem__(self, row):           # subscript getter
         self.BoardRow.current_i = row       # Store last accessed row
@@ -120,17 +123,17 @@ class Board(UserList):
         """
         Gets or sets the cells dimension
         """
-        return self._cell_size
+        return gui2darray.Cell.size
 
     @cell_size.setter
     def cell_size(self, value):
         if self._isrunning:
             raise Exception("Can't resize cells after run()")
-        # cell_size is a tuple (width, height)
+        # size is a tuple (width, height)
         if not type(value) is tuple:
             v = int(value)
             value = (v, v)
-        self._cell_size = value
+        gui2darray.Cell.size = value    # All cells has same size (class field)
         self._resize()
 
     # Methods
@@ -140,14 +143,40 @@ class Board(UserList):
         self._isrunning = True
         self._root.mainloop()
 
+    # Random shuffle
+    # Copy all values to an array, random.shuffle it, then copy back
+    def shuffle(self):
+        a = []
+        for r in self:
+            a.extend(r)
+        random.shuffle(a)
+        for row in self:
+            for c in range(self._ncols):
+                row[c] = a.pop()
+
+    # Fill the board (or a row, or a collumn) whith a value
+    def fill(self, value, row=None, col=None):
+        if row is None and col is None:
+            for r in range(self._nrows):
+                for c in range(self._ncols):
+                    self[r][c] = value
+        elif not row is None and col is None:
+            for c in range(self._ncols):
+                self[row][c] = value
+        elif row is None and not col is None:
+            for r in range(self._nrows):
+                self[r][col] = value
+        else:
+            raise Exception("Invalid argument supplied (row= AND col=)")
+
     def _resize(self):
-        self._canvas.config(width=self._ncols*(self.cell_size[0]+self.cell_spacing)-1,
-                            height=self._nrows*(self.cell_size[1]+self.cell_spacing)-1)
+        self._canvas.config(width=self._ncols*(gui2darray.Cell.size[0]+self.cell_spacing)-1,
+                            height=self._nrows*(gui2darray.Cell.size[1]+self.cell_spacing)-1)
 
     # Translate [r][c] to canvas x and y
     def rc2yx(self, row, col):
-        y = row*(self.cell_size[1]+self.cell_spacing)
-        x = col*(self.cell_size[0]+self.cell_spacing)
+        y = row*(gui2darray.Cell.size[1]+self.cell_spacing)
+        x = col*(gui2darray.Cell.size[0]+self.cell_spacing)
         return (y, x)
 
     def setupUI(self):
@@ -155,7 +184,6 @@ class Board(UserList):
         self.margin_color = self._margin_color        # Paint background
         self.grid_color = self._grid_color            # Table inner lines
         self.cell_color = self._cell_color            # Cells background
-        self.cell_size = self._cell_size              # (width, height)
         self.margin = self._margin                    # Change root's margin
         self.cell_spacing = self._cell_spacing        # Change root's padx/y
         self.title = self._title                      # Update window's title
@@ -163,7 +191,7 @@ class Board(UserList):
         for r in range(self._nrows):
             for c in range(self._ncols):
                 y, x = self.rc2yx(r, c)
-                newcell = gui2darray.Cell(self._canvas, x, y, self.cell_size)
+                newcell = gui2darray.Cell(self._canvas, x, y)
                 newcell.bgcolor = self._cell_color
                 self._cells[r][c] = newcell
                 if self[r][c] != None:                      # Cell already has a value
@@ -184,16 +212,16 @@ class Board(UserList):
     # Keyboard events
 
     @property
-    def on_key(self):
-        return self._on_key
+    def on_key_press(self):
+        return self._on_key_press
 
-    @on_key.setter
-    def on_key(self, value):
-        self._on_key = value
+    @on_key_press.setter
+    def on_key_press(self, value):
+        self._on_key_press = value
 
-    def _key(self, ev):
-        if callable(self.on_key):
-            self.on_key(ev.keysym)
+    def _key_press(self, ev):
+        if callable(self.on_key_press):
+            self.on_key_press(ev.keysym)
 
     # Inner class
     # A row is a list, so I can use the magic function __setitem__(board[i][j])
