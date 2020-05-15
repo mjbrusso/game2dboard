@@ -28,9 +28,12 @@ class Board(UserList):
         self._canvas = Canvas(self._root, highlightthickness=0)
         # event bindings
         self._on_key_press = None
+        self._timer_interval = 0
+        self._on_timer = None
         self._root.bind("<Key>", self._key_press)
         #self._root.bind("<ButtonPress>", self._button_down)
         self.cell_size = (50, 50)            # (w, h: px)
+
 
     def __getitem__(self, row):           # subscript getter
         self.BoardRow.current_i = row       # Store last accessed row
@@ -169,6 +172,10 @@ class Board(UserList):
         else:
             raise Exception("Invalid argument supplied (row= AND col=)")
 
+    # Clear board
+    def clear(self):
+        self.fill(None)
+
     def _resize(self):
         self._canvas.config(width=self._ncols*(gui2darray.Cell.size[0]+self.cell_spacing)-1,
                             height=self._nrows*(gui2darray.Cell.size[1]+self.cell_spacing)-1)
@@ -210,7 +217,6 @@ class Board(UserList):
             self._cells[row][col].value = new_value
 
     # Keyboard events
-
     @property
     def on_key_press(self):
         return self._on_key_press
@@ -222,6 +228,33 @@ class Board(UserList):
     def _key_press(self, ev):
         if callable(self.on_key_press):
             self.on_key_press(ev.keysym)
+
+    # Timer events
+    @property
+    def timer_interval(self):
+        return self._timer_interval
+
+    @timer_interval.setter
+    def timer_interval(self, value):
+        if value != self._timer_interval:       # changed
+            self._timer_interval = value            
+            if value > 0:
+                self._root.after(value, self._timer)
+
+    @property
+    def on_timer(self):
+        return self._on_timer
+
+    @on_timer.setter
+    def on_timer(self, value):
+        self._on_timer = value
+
+    def _timer(self):
+        intv = self._timer_interval or 0
+        if intv > 0:
+            if callable(self._on_timer):
+                self._on_timer()
+            self._root.after(intv, self._timer)
 
     # Inner class
     # A row is a list, so I can use the magic function __setitem__(board[i][j])
