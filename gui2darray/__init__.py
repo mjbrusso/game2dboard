@@ -10,4 +10,5 @@ except ImportError:
 from .Board import Board
 from .Cell import Cell
 from .ImageMap import ImageMap
-from .MessageBar import MessageBar
+from .OutputBar import OutputBar
+

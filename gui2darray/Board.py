@@ -3,7 +3,7 @@ import gui2darray
 import random
 from collections import UserList
 
-# TODO: .fill(), .on_mouse_click(), .on_timer(), MessageBar
+# TODO:  messageBox, rezize(r, c)
 
 
 class Board(UserList):
@@ -18,6 +18,7 @@ class Board(UserList):
         # Array used to store cells elements (rectangles)
         self._cells = [[None] * ncols for _ in range(nrows)]
         self._title = "GUI2DArray"            # Default window title
+        self._cursor = "hand1"                # Default mouse cursor
         self._margin = 5                      # board margin (px)
         self._cell_spacing = 1                # grid cell_spacing (px)
         self._margin_color = "light grey"     # default border color
@@ -28,12 +29,12 @@ class Board(UserList):
         self._canvas = Canvas(self._root, highlightthickness=0)
         # event bindings
         self._on_key_press = None
+        self._on_mouse_click = None
         self._timer_interval = 0
         self._on_timer = None
-        self._root.bind("<Key>", self._key_press)
-        #self._root.bind("<ButtonPress>", self._button_down)
-        self.cell_size = (50, 50)            # (w, h: px)
-
+        self._root.bind("<Key>", self._key_press_clbk)
+        self._canvas.bind("<ButtonPress>", self._mouse_click_clbk)
+        self._msgbar = None
 
     def __getitem__(self, row):           # subscript getter
         self.BoardRow.current_i = row       # Store last accessed row
@@ -52,6 +53,18 @@ class Board(UserList):
     def title(self, value):
         self._title = value
         self._root.title(value)
+
+    @property
+    def cursor(self):
+        """
+        Gets or sets the mouse cursor shape.
+        """
+        return self._cursor
+
+    @cursor.setter
+    def cursor(self, value):
+        self._cursor = value
+        self._canvas.configure(cursor=value)
 
     @property
     def margin(self):
@@ -177,14 +190,25 @@ class Board(UserList):
         self.fill(None)
 
     def _resize(self):
-        self._canvas.config(width=self._ncols*(gui2darray.Cell.size[0]+self.cell_spacing)-1,
-                            height=self._nrows*(gui2darray.Cell.size[1]+self.cell_spacing)-1)
+        self._canvas.config(width=self._ncols*(gui2darray.Cell.width+self.cell_spacing)-1,
+                            height=self._nrows*(gui2darray.Cell.height+self.cell_spacing))
 
-    # Translate [r][c] to canvas x and y
-    def rc2yx(self, row, col):
-        y = row*(gui2darray.Cell.size[1]+self.cell_spacing)
-        x = col*(gui2darray.Cell.size[0]+self.cell_spacing)
-        return (y, x)
+    # Translate [row][col] to canvas coordinates
+    def _rc2xy(self, row, col):
+        x = col*(gui2darray.Cell.width+self.cell_spacing)
+        y = row*(gui2darray.Cell.height+self.cell_spacing)
+        return (x, y)
+
+    # Translate canvas coordinates to (row, col)
+    def _xy2rc(self, x, y):
+        # how can i optimize it ???? May be _self.canvas.find_withtag(CURRENT)
+        for r in range(self._nrows):
+            for c in range(self._ncols):
+                cell = self._cells[r][c]
+                if cell.x < x < cell.x + gui2darray.Cell.width \
+                        and cell.y < y < cell.y + gui2darray.Cell.height:
+                    return (r, c)
+        return None
 
     def setupUI(self):
         self._root.resizable(False, False)            # Window is not resizable
@@ -194,10 +218,11 @@ class Board(UserList):
         self.margin = self._margin                    # Change root's margin
         self.cell_spacing = self._cell_spacing        # Change root's padx/y
         self.title = self._title                      # Update window's title
+        self.cursor = self._cursor
         # Create all cells
         for r in range(self._nrows):
             for c in range(self._ncols):
-                y, x = self.rc2yx(r, c)
+                x, y = self._rc2xy(r, c)
                 newcell = gui2darray.Cell(self._canvas, x, y)
                 newcell.bgcolor = self._cell_color
                 self._cells[r][c] = newcell
@@ -209,6 +234,15 @@ class Board(UserList):
 
     def close(self):
         self._root.quit()
+
+    def create_output(self, **kwargs):
+        if self._msgbar is None:
+            self._msgbar = gui2darray.OutputBar(self._root, **kwargs)
+
+    def print(self, *objects, sep=' ', end=''):
+        if self._msgbar:
+            s =  sep.join(str(obj) for obj in objects) + end
+            self._msgbar.show(s)
 
     # Events
 
@@ -225,9 +259,25 @@ class Board(UserList):
     def on_key_press(self, value):
         self._on_key_press = value
 
-    def _key_press(self, ev):
-        if callable(self.on_key_press):
-            self.on_key_press(ev.keysym)
+    def _key_press_clbk(self, ev):
+        if callable(self._on_key_press):
+            self._on_key_press(ev.keysym)
+
+    # Mouse click events
+    @property
+    def on_mouse_click(self):
+        return self._on_mouse_click
+
+    @on_mouse_click.setter
+    def on_mouse_click(self, value):
+        self._on_mouse_click = value
+
+    def _mouse_click_clbk(self, ev):
+        # print(self._canvas.find_withtag(CURRENT))
+        if callable(self._on_mouse_click):
+            rc = self._xy2rc(ev.x, ev.y)
+            if rc:
+                self._on_mouse_click(ev.num, rc[0], rc[1])
 
     # Timer events
     @property
@@ -237,9 +287,9 @@ class Board(UserList):
     @timer_interval.setter
     def timer_interval(self, value):
         if value != self._timer_interval:       # changed
-            self._timer_interval = value            
+            self._timer_interval = value
             if value > 0:
-                self._root.after(value, self._timer)
+                self._root.after(value, self._timer_clbk)
 
     @property
     def on_timer(self):
@@ -249,12 +299,12 @@ class Board(UserList):
     def on_timer(self, value):
         self._on_timer = value
 
-    def _timer(self):
+    def _timer_clbk(self):
         intv = self._timer_interval or 0
         if intv > 0:
             if callable(self._on_timer):
                 self._on_timer()
-            self._root.after(intv, self._timer)
+            self._root.after(intv, self._timer_clbk)
 
     # Inner class
     # A row is a list, so I can use the magic function __setitem__(board[i][j])
@@ -264,9 +314,9 @@ class Board(UserList):
         # Maybe in the future I will use a proxy class
         current_i = None
 
-        def __init__(self, size, parent):
+        def __init__(self, length, parent):
             UserList.__init__(self)
-            self.extend([None] * size)         # Initialize the row
+            self.extend([None] * length)         # Initialize the row
             self._parent = parent           # the board
 
         def __setitem__(self, j, value):
