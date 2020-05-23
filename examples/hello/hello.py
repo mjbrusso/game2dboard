@@ -26,5 +26,5 @@ b.grid_color = b.margin_color = "AntiqueWhite3"
 b.cell_color = "gray20"
 b.timer_interval = 2000
 b.on_timer = fntimer
-b.run()
+b.show()
 

@@ -1,9 +1,11 @@
+import time
 from tkinter import *
 import gui2darray
 import random
 from collections import UserList
 
-# TODO:  messageBox, rezize(r, c)
+# TODO:
+#       rezize(r, c), self[i] = [...]
 
 
 class Board(UserList):
@@ -76,7 +78,7 @@ class Board(UserList):
     @margin.setter
     def margin(self, value):
         if self._isrunning:
-            raise Exception("Can't update margin after run()")
+            raise Exception("Can't update margin after show()")
         self._margin = value
         self._root.configure(padx=value, pady=value)
 
@@ -90,7 +92,7 @@ class Board(UserList):
     @cell_spacing.setter
     def cell_spacing(self, value):
         if self._isrunning:
-            raise Exception("Can't update cell_spacing after run()")
+            raise Exception("Can't update cell_spacing after show()")
         self._cell_spacing = value
         self._resize()
 
@@ -154,10 +156,19 @@ class Board(UserList):
 
     # Methods
 
-    def run(self):              # Show and start running
+    def show(self):              # Show and start running
         self.setupUI()
         self._isrunning = True
         self._root.mainloop()
+
+    def pause(self, nsecs, change_cursor=True):
+        if change_cursor:
+            oldc = self.cursor
+            self.cursor = "watch"
+        self._root.update_idletasks()
+        time.sleep(nsecs)
+        if change_cursor:
+            self.cursor = oldc
 
     # Random shuffle
     # Copy all values to an array, random.shuffle it, then copy back
@@ -190,8 +201,8 @@ class Board(UserList):
         self.fill(None)
 
     def _resize(self):
-        self._canvas.config(width=self._ncols*(gui2darray.Cell.width+self.cell_spacing)-1,
-                            height=self._nrows*(gui2darray.Cell.height+self.cell_spacing))
+        self._canvas.config(width=self._ncols*(gui2darray.Cell.width+self.cell_spacing)-self.cell_spacing,
+                            height=self._nrows*(gui2darray.Cell.height+self.cell_spacing)-self.cell_spacing)
 
     # Translate [row][col] to canvas coordinates
     def _rc2xy(self, row, col):
@@ -241,7 +252,7 @@ class Board(UserList):
 
     def print(self, *objects, sep=' ', end=''):
         if self._msgbar:
-            s =  sep.join(str(obj) for obj in objects) + end
+            s = sep.join(str(obj) for obj in objects) + end
             self._msgbar.show(s)
 
     # Events
