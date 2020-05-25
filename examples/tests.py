@@ -32,8 +32,6 @@ click : put/remove
         b.fill(IMGID, col=1)
     elif key == "2":
         b.fill(IMGID, row=2)
-    elif key == "t":
-        b.timer_interval = 0 if b.timer_interval else 1000
     elif key == "m":
         b.cursor = "arrow" if b.cursor == "hand1" else "hand1"
 
@@ -56,8 +54,8 @@ b.margin_color = b.grid_color = "AntiqueWhite4"
 b.cell_color = "AntiqueWhite1"
 b[0][2] = b[4][1] = IMGID
 b.on_key_press = kbdfn
-b.timer_interval = 1000
 b.on_mouse_click = mousefn
 b.on_timer = timerfn
+b.start_timer(1000)
 b.create_output(color='gray20', background_color='AntiqueWhite3', font_size=10)
 b.show()

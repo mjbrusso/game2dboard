@@ -23,7 +23,7 @@ def fnmouse(btn, r, c):
                 if match_count == 16:             # Game end
                     game.print("Você venceu com", attempts_count, " tentativas!\tF2: Jogar novamente")
             else:                                     # Not match: "un"flip both cards
-                game.pause(0.5)
+                game.pause(500)
                 print("Beeeep")
                 game[r][c] -= 10
                 game[previous_row][previous_col] -= 10
@@ -39,6 +39,7 @@ def newgame():
     game[3][0] = game[3][1] = 7 ; game[3][2] = game[3][3] = 8
     game.shuffle()
     game.print("ESC: Sair    F2: Reiniciar jogo")
+
 
 game = Board(4, 4)
 game.cell_size = 130

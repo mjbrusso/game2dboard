@@ -1,12 +1,10 @@
-import time
 from tkinter import *
 import gui2darray
 import random
 from collections import UserList
 
 # TODO:
-#       rezize(r, c), self[i] = [...]
-
+#       rezize(r, c), self[i] = [...], beep()
 
 class Board(UserList):
     def __init__(self, nrows, ncols):
@@ -34,6 +32,8 @@ class Board(UserList):
         self._on_mouse_click = None
         self._timer_interval = 0
         self._on_timer = None
+        self._after_id = None
+        self._is_in_timer_calback = False
         self._root.bind("<Key>", self._key_press_clbk)
         self._canvas.bind("<ButtonPress>", self._mouse_click_clbk)
         self._msgbar = None
@@ -161,12 +161,25 @@ class Board(UserList):
         self._isrunning = True
         self._root.mainloop()
 
-    def pause(self, nsecs, change_cursor=True):
+    def start_timer(self, msecs):
+        if msecs != self._timer_interval:       # changed
+            self.stop_timer()
+            self._timer_interval = msecs
+            if msecs > 0 and not self._is_in_timer_calback:
+                self._after_id = self._root.after(msecs, self._timer_clbk)
+
+    def stop_timer(self):
+        self._timer_interval = 0
+        if self._after_id:
+            self._root.after_cancel(self._after_id)
+            self._after_id = None
+
+    def pause(self, msecs, change_cursor=True):
         if change_cursor:
             oldc = self.cursor
             self.cursor = "watch"
         self._root.update_idletasks()
-        time.sleep(nsecs)
+        self._root.after(msecs)
         if change_cursor:
             self.cursor = oldc
 
@@ -292,17 +305,6 @@ class Board(UserList):
 
     # Timer events
     @property
-    def timer_interval(self):
-        return self._timer_interval
-
-    @timer_interval.setter
-    def timer_interval(self, value):
-        if value != self._timer_interval:       # changed
-            self._timer_interval = value
-            if value > 0:
-                self._root.after(value, self._timer_clbk)
-
-    @property
     def on_timer(self):
         return self._on_timer
 
@@ -311,11 +313,12 @@ class Board(UserList):
         self._on_timer = value
 
     def _timer_clbk(self):
-        intv = self._timer_interval or 0
-        if intv > 0:
-            if callable(self._on_timer):
-                self._on_timer()
-            self._root.after(intv, self._timer_clbk)
+        if self._timer_interval > 0 and callable(self._on_timer):
+            self._is_in_timer_calback = True
+            self._on_timer()              # Call the user callback function
+            self._is_in_timer_calback = False
+        if self._timer_interval > 0:      # User callback function may change timer!
+            self._after_id = self._root.after(self._timer_interval, self._timer_clbk)
 
     # Inner class
     # A row is a list, so I can use the magic function __setitem__(board[i][j])
