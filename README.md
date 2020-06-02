@@ -95,7 +95,7 @@ Gets or sets grid color
 
 
 - `cell_size` : *int | (int, int)*<br> 
-Gets or sets the cells dimension (width, height)
+Gets or sets the cells dimension (*width*, *height*)
 
 
 - `on_key_press` : *function(key: str)*<br>
@@ -116,8 +116,8 @@ Create the GUI, display and enter the run loop.
 
 
 - `start_timer(msecs)`<br>
-Start a periodic timer that executes the a function every msecs milliseconds<br>
-The callback function must be registered using .on_timer property.
+Start a periodic timer that executes the a function every `msecs` milliseconds<br>
+The callback function must be registered using `.on_timer` property.
     - `msecs` (*int*) – Time in milliseconds.
 
 
@@ -139,12 +139,12 @@ Random shuffle all values in the board
 - `fill(value, row=None, col=None)`<br>
 Fill the board (or a row, or a column) with a value
     - `value` – The value to store
-    - `row` (*int*) – Index of row to fill. Default=None (all rows)
-    - `col` (*int*) – Index of column to fill. Default=None (all columns)
+    - `row` (*int*) – Index of row to fill. Default=`None` (all rows)
+    - `col` (*int*) – Index of column to fill. Default=`None` (all columns)
 
 
 - `clear()`<br>
-Clear the board, setting all values to None.
+Clear the board, setting all values to `None`.
 
 
 - `close()`<br>
@@ -153,12 +153,12 @@ Close the board, exiting the program.
 
 - `create_output(**kwargs)`<br>
 Create a output message bar.
-    - kwargs:
+    - `kwargs`:
       - `color` = *str*
       - `background_color` = *str*
       - `font_size` = *int*
 
 - `print(*objects, sep=' ', end='')`<br>
 Print message to output bar. <br>
-Use like built-in print() function.
+Use like built-in `print()` function.
 
