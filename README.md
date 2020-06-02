@@ -45,9 +45,8 @@ b.show()
 | <!-- -->    | <!-- -->    |
 |:---:|:---:|
 |![memory game](images/memory.png) |  ![snake](images/snake.png) |
-| Memory Game | Snake | 
-| 54 LOC | 87 LOC | 
-| [View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame) | [View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
+| Memory Game (54 LOC) [View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame)| Snake (87 LOC) [View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
+
 
 
 ## API
