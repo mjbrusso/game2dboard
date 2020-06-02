@@ -130,3 +130,6 @@ dmypy.json
 
 # VS code
 tempCodeRunnerFile.py
+
+examples/TapTheMosquito
+#examples/snake

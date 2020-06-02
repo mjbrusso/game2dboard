@@ -13,7 +13,7 @@ def kbdfn(key):
 [ESC] : close
 [h]   : help
 [r]   : shuffle 
-[a]   : fill all board
+[f]   : fill all board
 [1]   : fill collumn[1]
 [2]   : fill row[2]
 [c]   : clear
@@ -24,7 +24,7 @@ click : put/remove
         """)
     elif key == "r":
         b.shuffle()
-    elif key == "a":
+    elif key == "f":
         b.fill(IMGID)
     elif key == "c":
         b.clear()
@@ -40,9 +40,10 @@ def mousefn(btn, row, col):
     b[row][col] = IMGID if not b[row][col] else None
 
 def timerfn():
-    b.print(datetime.datetime.now().strftime("%H:%M:%S"))
+    b.print(datetime.datetime.now().strftime("[H]: Help      %H:%M:%S"))
 
 b = Board(5, 15)
+b[0][0] = 12
 b.title = "Hello, World!"
 # See available cursor names in https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/cursors.html
 #b.cursor = "hand1"
