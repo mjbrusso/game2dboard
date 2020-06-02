@@ -40,6 +40,16 @@ b.create_output()
 b.print("<left-button>: ++    <right button>: --")
 b.show()
 ```
+## Galery
+
+| <!-- -->    | <!-- -->    |
+|-------------|-------------|
+|![memory game](images/memory.png) |  ![snake](images/snake.png) |
+| Memory Game | Snake | 
+| 54 LOC | 87 LOC | 
+| [View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame) | [View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
+
+
 ## API
 
 ### Creation

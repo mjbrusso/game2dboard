@@ -1,6 +1,7 @@
 from game2dboard import Board
 
 previous_row = previous_col = reversed_cards = match_count = attempts_count = 0
+MSG = "ESC: Close    F2: Restart"
 
 def fnkbd(key):
     if key == "Escape":
@@ -15,16 +16,15 @@ def fnmouse(btn, r, c):
         reversed_cards += 1
         if reversed_cards == 2:
             attempts_count += 1
-            game.print(attempts_count, "tentativas" if attempts_count != 1 else "tentativa")
+            game.print(MSG, "  ({})".format(attempts_count))
             reversed_cards = 0
             # if two cards are equals.
             if game[r][c] == game[previous_row][previous_col]:
                 match_count += 2
                 if match_count == 16:             # Game end
-                    game.print("Você venceu com", attempts_count, " tentativas!\tF2: Jogar novamente")
+                    game.print("You won!  Total: ", attempts_count, " attempts!\tF2: Play again")
             else:                                     # Not match: "un"flip both cards
                 game.pause(500)
-                print("Beeeep")
                 game[r][c] -= 10
                 game[previous_row][previous_col] -= 10
         previous_row = r                                # Save last position
@@ -38,7 +38,7 @@ def newgame():
     game[2][0] = game[2][1] = 5 ; game[2][2] = game[2][3] = 6
     game[3][0] = game[3][1] = 7 ; game[3][2] = game[3][3] = 8
     game.shuffle()
-    game.print("ESC: Sair    F2: Reiniciar jogo")
+    game.print(MSG)
 
 
 game = Board(4, 4)
