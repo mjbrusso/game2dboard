@@ -161,3 +161,10 @@ Create a output message bar.
 Print message to output bar. <br>
 Use like built-in `print()` function.
 
+
+## TO DO 
+To do.... ;-)
+
+## License
+
+game2darray is under MIT license.It can be reused within proprietary software provided that all copies of the licensed software include a copy of the MIT License terms and the copyright notice.
