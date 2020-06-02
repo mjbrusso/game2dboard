@@ -42,9 +42,9 @@ b.show()
 ```
 ## Galery
 
-| <!-- -->    | <!-- -->    |
-|:---:|:---:|
+
 |![memory game](images/memory.png) |  ![snake](images/snake.png) |
+|:---:|:---:|
 | **Memory Game**<br>54 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame)| **Snake**<br>87 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
 
 
