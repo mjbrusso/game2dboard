@@ -19,13 +19,13 @@ To configure this for YOUR next project - search for the pattern #CHNAGEME# in t
 import os
 import sys
 #CHNAGEME# Change this to be the correct local path.
-sys.path.append(os.path.abspath('/media/mjb/DADOS/googledrive/Devel/Python/gui2darray'))
+sys.path.append(os.path.abspath('/media/mjb/DADOS/googledrive/Devel/Python/game2dboard'))
 
 
 # -- Some general info  about the project -----------------------------------------------------------------------------
 
 #CHNAGEME# Change this to fit your project.
-project = u'gui2darray'
+project = u'game2dboard'
 copyright = u'2020, mjbrusso'
 author = u'mjbrusso'
 

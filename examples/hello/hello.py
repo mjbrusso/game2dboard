@@ -1,4 +1,4 @@
-from gui2darray import Board
+from game2dboard import Board
 
 def fntimer():
     b.shuffle()

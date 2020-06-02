@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-from gui2darray import __name__, __package__, __version__
+from game2dboard import __name__, __package__, __version__
 
 __author__ = "Marcos Brusso"
 __author_email__="mjbrusso@gmail.com"
@@ -13,7 +13,7 @@ __keywords__ = [
     "Matrices",
     "array"
 ]
-__url__ = "https://github.com/mjbrusso/gui2darray"
+__url__ = "https://github.com/mjbrusso/game2dboard"
 
 __classifiers__ = [
     "Development Status :: 2 - Pre-Alpha",

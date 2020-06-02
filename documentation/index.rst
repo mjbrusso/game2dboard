@@ -9,7 +9,7 @@ Welcome to YOUR NEXT PROJECT'S documentation !
 
 Put here some introduction to your project.
 
-The source code is available `here <https://github.com/mjbrusso/gui2darray>`_.
+The source code is available `here <https://github.com/mjbrusso/game2dboard>`_.
 
 |
 

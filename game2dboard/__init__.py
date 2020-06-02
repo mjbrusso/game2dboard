@@ -1,5 +1,5 @@
-__name__ = "gui2darray"
-__package__ = "gui2darray"
+__name__ = "game2dboard"
+__package__ = "game2dboard"
 __version__ = "0.1"
 
 try:

@@ -1,5 +1,5 @@
 from tkinter import *
-from gui2darray import Board
+from game2dboard import Board
 
 all_tests = []
 

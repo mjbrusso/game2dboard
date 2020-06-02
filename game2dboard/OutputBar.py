@@ -1,7 +1,7 @@
 
 
 from tkinter import *
-import gui2darray
+import game2dboard
 
 
 class OutputBar(Frame):

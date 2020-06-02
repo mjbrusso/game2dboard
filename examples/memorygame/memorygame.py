@@ -1,4 +1,4 @@
-from gui2darray import Board
+from game2dboard import Board
 
 previous_row = previous_col = reversed_cards = match_count = attempts_count = 0
 

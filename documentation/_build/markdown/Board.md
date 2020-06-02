@@ -1,7 +1,7 @@
 # This is a template for including classes
 
 
-### class gui2darray.Board(nrows, ncols)
+### class game2dboard.Board(nrows, ncols)
 A graphic user interface for a 2d array (matrix)
 
 Creates an App

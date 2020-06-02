@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>gui2darray.Board &#8212; gui2darray  documentation</title>
+    <title>game2dboard.Board &#8212; game2dboard  documentation</title>
     <link rel="stylesheet" href="../../_static/graphite.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -21,7 +21,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">gui2darray  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">game2dboard  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -31,9 +31,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for gui2darray.Board</h1><div class="highlight"><pre>
+  <h1>Source code for game2dboard.Board</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">tkinter</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">gui2darray</span>
+<span class="kn">import</span> <span class="nn">game2dboard</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">UserList</span>
 
@@ -41,7 +41,7 @@
 <span class="c1">#       rezize(r, c), self[i] = [...], beep(), play_sound(), ...</span>
 
 
-<div class="viewcode-block" id="Board"><a class="viewcode-back" href="../../Board.html#gui2darray.Board">[docs]</a><span class="k">class</span> <span class="nc">Board</span><span class="p">(</span><span class="n">UserList</span><span class="p">):</span>
+<div class="viewcode-block" id="Board"><a class="viewcode-back" href="../../Board.html#game2dboard.Board">[docs]</a><span class="k">class</span> <span class="nc">Board</span><span class="p">(</span><span class="n">UserList</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A graphic user interface for a 2d array (matrix)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -70,7 +70,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_isrunning</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># Array used to store cells elements (rectangles)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span> <span class="o">=</span> <span class="p">[[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">ncols</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nrows</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_title</span> <span class="o">=</span> <span class="s2">&quot;GUI2DArray&quot;</span>            <span class="c1"># Default window title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_title</span> <span class="o">=</span> <span class="s2">&quot;game2dboard&quot;</span>            <span class="c1"># Default window title</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="s2">&quot;hand1&quot;</span>                <span class="c1"># Default mouse cursor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_margin</span> <span class="o">=</span> <span class="mi">5</span>                      <span class="c1"># board margin (px)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cell_spacing</span> <span class="o">=</span> <span class="mi">1</span>                <span class="c1"># grid cell_spacing (px)</span>
@@ -216,7 +216,7 @@
 
 <span class="sd">        :type: int or (int, int)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">size</span>
+        <span class="k">return</span> <span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">size</span>
 
     <span class="nd">@cell_size</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">cell_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -226,7 +226,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
             <span class="n">v</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">value</span>    <span class="c1"># All cells has same size (class field)</span>
+        <span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">value</span>    <span class="c1"># All cells has same size (class field)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_resize</span><span class="p">()</span>
 
     <span class="c1"># Events</span>
@@ -299,7 +299,7 @@
     <span class="c1"># Methods</span>
     <span class="c1"># ---------------------------------------------------------------</span>
 
-<div class="viewcode-block" id="Board.show"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.show"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Create the GUI, display and enter the run loop.</span>
@@ -309,7 +309,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_isrunning</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Board.start_timer"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.start_timer">[docs]</a>    <span class="k">def</span> <span class="nf">start_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msecs</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.start_timer"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.start_timer">[docs]</a>    <span class="k">def</span> <span class="nf">start_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msecs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Start a periodic timer that executes the a function every msecs milliseconds</span>
@@ -324,7 +324,7 @@
             <span class="k">if</span> <span class="n">msecs</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_in_timer_calback</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_after_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="n">msecs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timer_clbk</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Board.stop_timer"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.stop_timer">[docs]</a>    <span class="k">def</span> <span class="nf">stop_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.stop_timer"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.stop_timer">[docs]</a>    <span class="k">def</span> <span class="nf">stop_timer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Stops the current timer.</span>
@@ -334,7 +334,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">after_cancel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_after_id</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_after_id</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="Board.pause"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msecs</span><span class="p">,</span> <span class="n">change_cursor</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.pause"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msecs</span><span class="p">,</span> <span class="n">change_cursor</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Delay the program execution for a given number of milliseconds.  </span>
@@ -352,7 +352,7 @@
         <span class="k">if</span> <span class="n">change_cursor</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="n">oldc</span></div>
 
-<div class="viewcode-block" id="Board.shuffle"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.shuffle">[docs]</a>    <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.shuffle"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.shuffle">[docs]</a>    <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Random shuffle all values in the board</span>
@@ -367,7 +367,7 @@
             <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ncols</span><span class="p">):</span>
                 <span class="n">row</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Board.fill"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.fill"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Fill the board (or a row, or a column) whith a value</span>
@@ -389,25 +389,25 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Invalid argument supplied (row= AND col=)&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Board.clear"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.clear"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Clear the board, setting all values to None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Board.close"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.close"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Close the board, exiting the program.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Board.create_output"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.create_output">[docs]</a>    <span class="k">def</span> <span class="nf">create_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.create_output"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.create_output">[docs]</a>    <span class="k">def</span> <span class="nf">create_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_msgbar</span> <span class="o">=</span> <span class="n">gui2darray</span><span class="o">.</span><span class="n">OutputBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_msgbar</span> <span class="o">=</span> <span class="n">game2dboard</span><span class="o">.</span><span class="n">OutputBar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Board.print"><a class="viewcode-back" href="../../Board.html#gui2darray.Board.print">[docs]</a>    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Board.print"><a class="viewcode-back" href="../../Board.html#game2dboard.Board.print">[docs]</a>    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_msgbar</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">)</span> <span class="o">+</span> <span class="n">end</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_msgbar</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
@@ -428,7 +428,7 @@
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nrows</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ncols</span><span class="p">):</span>
                 <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rc2xy</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
-                <span class="n">newcell</span> <span class="o">=</span> <span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">newcell</span> <span class="o">=</span> <span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
                 <span class="n">newcell</span><span class="o">.</span><span class="n">bgcolor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_color</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">newcell</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>                      <span class="c1"># Cell already has a value</span>
@@ -443,13 +443,13 @@
 
     <span class="c1"># Config the canvas size</span>
     <span class="k">def</span> <span class="nf">_resize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ncols</span><span class="o">*</span><span class="p">(</span><span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">width</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">,</span>
-                            <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_nrows</span><span class="o">*</span><span class="p">(</span><span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">height</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ncols</span><span class="o">*</span><span class="p">(</span><span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">width</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">,</span>
+                            <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_nrows</span><span class="o">*</span><span class="p">(</span><span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">height</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span>
 
     <span class="c1"># Translate [row][col] to canvas coordinates</span>
     <span class="k">def</span> <span class="nf">_rc2xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">col</span><span class="o">*</span><span class="p">(</span><span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">width</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">row</span><span class="o">*</span><span class="p">(</span><span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">height</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">col</span><span class="o">*</span><span class="p">(</span><span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">width</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">row</span><span class="o">*</span><span class="p">(</span><span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">height</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_spacing</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="c1"># Translate canvas coordinates to (row, col)</span>
@@ -458,8 +458,8 @@
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nrows</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ncols</span><span class="p">):</span>
                 <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cells</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">cell</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">cell</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">width</span> \
-                        <span class="ow">and</span> <span class="n">cell</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">cell</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">gui2darray</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cell</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">cell</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">width</span> \
+                        <span class="ow">and</span> <span class="n">cell</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">cell</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">game2dboard</span><span class="o">.</span><span class="n">Cell</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
                     <span class="k">return</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -517,7 +517,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">gui2darray  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">game2dboard  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

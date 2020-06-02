@@ -2,7 +2,7 @@ This is a template for including classes
 ========================================
 |
 
-.. autoclass:: gui2darray.Board
+.. autoclass:: game2dboard.Board
     :members:
     :undoc-members:
 

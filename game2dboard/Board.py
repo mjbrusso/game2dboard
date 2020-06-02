@@ -1,5 +1,5 @@
 from tkinter import *
-import gui2darray
+import game2dboard
 import random
 from collections import UserList
 
@@ -36,7 +36,7 @@ class Board(UserList):
         self._isrunning = False
         # Array used to store cells elements (rectangles)
         self._cells = [[None] * ncols for _ in range(nrows)]
-        self._title = "GUI2DArray"            # Default window title
+        self._title = "game2dboard"            # Default window title
         self._cursor = "hand1"                # Default mouse cursor
         self._margin = 5                      # board margin (px)
         self._cell_spacing = 1                # grid cell_spacing (px)
@@ -213,7 +213,7 @@ class Board(UserList):
 
         :type: int or (int, int)
         """
-        return gui2darray.Cell.size
+        return game2dboard.Cell.size
 
     @cell_size.setter
     def cell_size(self, value):
@@ -223,7 +223,7 @@ class Board(UserList):
         if not type(value) is tuple:
             v = int(value)
             value = (v, v)
-        gui2darray.Cell.size = value    # All cells has same size (class field)
+        game2dboard.Cell.size = value    # All cells has same size (class field)
         self._resize()
 
     # Events
@@ -403,7 +403,7 @@ class Board(UserList):
 
     def create_output(self, **kwargs):
         if self._msgbar is None:
-            self._msgbar = gui2darray.OutputBar(self._root, **kwargs)
+            self._msgbar = game2dboard.OutputBar(self._root, **kwargs)
 
     def print(self, *objects, sep=' ', end=''):
         if self._msgbar:
@@ -426,7 +426,7 @@ class Board(UserList):
         for r in range(self._nrows):
             for c in range(self._ncols):
                 x, y = self._rc2xy(r, c)
-                newcell = gui2darray.Cell(self._canvas, x, y)
+                newcell = game2dboard.Cell(self._canvas, x, y)
                 newcell.bgcolor = self._cell_color
                 self._cells[r][c] = newcell
                 if self[r][c] != None:                      # Cell already has a value
@@ -441,13 +441,13 @@ class Board(UserList):
 
     # Config the canvas size
     def _resize(self):
-        self._canvas.config(width=self._ncols*(gui2darray.Cell.width+self.cell_spacing)-self.cell_spacing,
-                            height=self._nrows*(gui2darray.Cell.height+self.cell_spacing)-self.cell_spacing)
+        self._canvas.config(width=self._ncols*(game2dboard.Cell.width+self.cell_spacing)-self.cell_spacing,
+                            height=self._nrows*(game2dboard.Cell.height+self.cell_spacing)-self.cell_spacing)
 
     # Translate [row][col] to canvas coordinates
     def _rc2xy(self, row, col):
-        x = col*(gui2darray.Cell.width+self.cell_spacing)
-        y = row*(gui2darray.Cell.height+self.cell_spacing)
+        x = col*(game2dboard.Cell.width+self.cell_spacing)
+        y = row*(game2dboard.Cell.height+self.cell_spacing)
         return (x, y)
 
     # Translate canvas coordinates to (row, col)
@@ -456,8 +456,8 @@ class Board(UserList):
         for r in range(self._nrows):
             for c in range(self._ncols):
                 cell = self._cells[r][c]
-                if cell.x < x < cell.x + gui2darray.Cell.width \
-                        and cell.y < y < cell.y + gui2darray.Cell.height:
+                if cell.x < x < cell.x + game2dboard.Cell.width \
+                        and cell.y < y < cell.y + game2dboard.Cell.height:
                     return (r, c)
         return None
 

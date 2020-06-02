@@ -1,17 +1,19 @@
-from gui2darray import Board
+from game2dboard import Board
 
 
-def fnm(btn, r, c):
+def mouse_fn(btn, row, col):
     if btn==1 or btn==4:
-        b[r][c] += 1
+        b[row][col] += 1
     else:
-        b[r][c] -= 1
+        b[row][col] -= 1
 
 b = Board(4, 4)
+b.cell_size = 100
 b.fill(0)
-b[1][0] = 3
-b[1][1] = 40
-# b.cell_color = "green"
-# b.grid_color = "white"
-b.on_mouse_click = fnm
+b.cell_color = "white"
+b.grid_color = "black"
+b[1][0] = 10
+b.on_mouse_click = mouse_fn
+b.create_output()
+b.print("<left-button>: Increment    <right button>: Decrement")
 b.show()

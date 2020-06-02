@@ -4,7 +4,7 @@ Follow the inline instructions to configure this for YOUR next project. -->
 
 Put here some introduction to your project.
 
-The source code is available [here](https://github.com/mjbrusso/gui2darray).
+The source code is available [here](https://github.com/mjbrusso/game2dboard).
 
 <!-- maxdepth = 1 means the Table of Contents will only links to the separate pages of the documentation.
 Increasing this number will result in deeper links to subtitles etc. -->
