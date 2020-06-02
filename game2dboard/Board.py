@@ -9,7 +9,7 @@ from collections import UserList
 
 class Board(UserList):
     """
-    A graphic user interface for a 2d array (matrix)
+    A graphical user interface for 2d arrays (matrix)
     """
 
     def __init__(
@@ -254,7 +254,7 @@ class Board(UserList):
         """
         Gets or sets the mouse callback function
 
-        :type: function(button: str)
+        :type: function(button: str, row: int, col: int)
         """
         return self._on_mouse_click
 
@@ -367,7 +367,7 @@ class Board(UserList):
     def fill(self, value, row=None, col=None):
         """
 
-        Fill the board (or a row, or a column) whith a value
+        Fill the board (or a row, or a column) with a value
 
         :param value: The value to store
         :param int row: Index of row to fill. Default=None (all rows)
@@ -402,10 +402,23 @@ class Board(UserList):
         self._root.update()
 
     def create_output(self, **kwargs):
+        """
+
+        Create a output message bar.
+        kwargs:
+            color = str
+            background_color` = str
+            font_size = int
+        """
         if self._msgbar is None:
             self._msgbar = game2dboard.OutputBar(self._root, **kwargs)
 
     def print(self, *objects, sep=' ', end=''):
+        """
+
+        Print message to output bar. 
+        Use like standard print() function.
+        """        
         if self._msgbar:
             s = sep.join(str(obj) for obj in objects) + end
             self._msgbar.show(s)
