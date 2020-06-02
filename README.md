@@ -43,7 +43,7 @@ b.show()
 ## Galery
 
 | <!-- -->    | <!-- -->    |
-|-------------|-------------|
+|:---:|:---:|
 |![memory game](images/memory.png) |  ![snake](images/snake.png) |
 | Memory Game | Snake | 
 | 54 LOC | 87 LOC | 
