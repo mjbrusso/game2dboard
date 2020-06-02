@@ -1,8 +1,7 @@
 # game2dboard
 
-A graphical user interface for 2d arrays (matrix). 
-
-This Python GUI package aims to easily create board games using 2d arrays.
+A quick and easy way to create board games using 2d arrays in Python. 
+This Python GUI package provides a graphical user interface (GUI) for 2d arrays (matrix). 
 
 ## Installation
 
