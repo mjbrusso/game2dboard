@@ -1,6 +1,6 @@
 __name__ = "game2dboard"
 __package__ = "game2dboard"
-__version__ = "0.7"
+__version__ = "0.8"
 
 try:
     from tkinter import Tk

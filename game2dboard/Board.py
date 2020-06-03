@@ -36,8 +36,8 @@ class Board(UserList):
         self._isrunning = False
         # Array used to store cells elements (rectangles)
         self._cells = [[None] * ncols for _ in range(nrows)]
-        self._title = "game2dboard"            # Default window title
-        self._cursor = "hand1"                # Default mouse cursor
+        self._title = "game2dboard"           # Default window title
+        self._cursor = "arrow"                # Default mouse cursor
         self._margin = 5                      # board margin (px)
         self._cell_spacing = 1                # grid cell_spacing (px)
         self._margin_color = "light grey"     # default border color
@@ -116,7 +116,8 @@ class Board(UserList):
     def cursor(self):
         """
 
-        Gets or sets the mouse cursor shape.
+        Gets or sets the mouse cursor shape.<br>
+        Setting to None hides the cursor.
 
         :type: str
         """
@@ -125,6 +126,8 @@ class Board(UserList):
     @cursor.setter
     def cursor(self, value):
         self._cursor = value
+        if value is None:
+            value = "none"
         self._canvas.configure(cursor=value)
 
     @property

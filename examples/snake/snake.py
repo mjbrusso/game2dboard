@@ -76,6 +76,7 @@ def setup():
 field = Board(FIELD_HEIGHT, FIELD_WIDTH)
 field.cell_size = BLOCK_SIZE
 field.title = "Snake game"
+field.cursor = None                         # Hide the cursor
 field.margin = field.cell_spacing = 1
 field.grid_color = field.margin_color = "dark sea green"
 field.cell_color = "PaleGreen4"

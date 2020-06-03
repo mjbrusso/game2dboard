@@ -61,7 +61,7 @@ Some screenshots from examples.
 
 |![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png) |  ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png) |
 |:---:|:---:|
-| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame)| **Snake**<br>87 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
+| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame)| **Snake**<br>86 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
 
 
 
@@ -115,7 +115,7 @@ Gets or sets the window title.
 
 
 - `cursor` : *str*<br> 
-Gets or sets the mouse cursor shape.<br>
+Gets or sets the mouse cursor shape. Setting to `None` hides the cursor.<br>
 See avaliable cursor names in https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/cursors.html
 
 
