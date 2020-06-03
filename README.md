@@ -18,7 +18,7 @@ pip3 install game2dboard
 ```
 
 
-Install the latest release by cloning the repository:
+Or install the latest release by cloning the repository:
 
 ```bash
 git clone https://github.com/mjbrusso/game2dboard.git 
@@ -31,7 +31,7 @@ python3 setup.py install --user
 
 The API is documented [bellow](#API) and within the docstrings. 
 
-This simple example only provides an overview. See the examples for more details. 
+This simple code only provides an overview. See the examples for more details. 
 
 Before running, copy [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/0.png) and [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/1.png) files into a `img/` folder [(credits)](https://publicdomainvectors.org).
 
@@ -53,7 +53,7 @@ b.show()
 
 #### Result
 
-![Screnshot](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/basic.png)
+![Screnshot](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/basic.gif)
 
 ## Galery
 
