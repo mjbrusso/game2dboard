@@ -79,7 +79,7 @@ Creates a Board.
 - `self[i][j]`<br>
   Gets/sets the value at row `i`, column `j`. 
   
-  When assigning a value, the GUI will be updated. If there is an **.png** file in the `img/` folder whose name is the same as the new value, it will be drawn in position `[i][j]` of the board. Otherwise, the value will be displayed as text.
+  When assigning a value, the GUI will be updated. If there is an **.png** file in the `img/` folder whose name is the same as the new value, it will be drawn at position `[i][j]` of the board. Otherwise, the value will be displayed as text.
 
   Example:
   ```python
@@ -90,7 +90,7 @@ Creates a Board.
 
 ### Properties
 
-Use properties to access board attributes, like public fields.<br>Example:
+Use properties to access board attributes like public fields.<br>Example:
   ```python
     b.title = "Hello"       # Sets the window title
     sz = b.size             # Gets the total number of elements
