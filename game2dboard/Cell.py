@@ -66,13 +66,13 @@ class Cell(object, metaclass=CellProperties):
                 vc = self._y + Cell.height // 2    # vertical center
                 # Show image|text @ canvas center
                 if img:
-                    self._image_id = self._parent.create_image(
-                        hc, 
-                        vc, 
-                        anchor=CENTER, 
+                    self._image_id = self._parent.create_image(  # Draw a image
+                        hc,
+                        vc,
+                        anchor=CENTER,
                         image=img)
                 else:
-                    self._image_id = self._parent.create_text(
+                    self._image_id = self._parent.create_text(  # or just draw the value as text
                         hc,
                         vc,
                         anchor=CENTER,
@@ -110,7 +110,8 @@ class Cell(object, metaclass=CellProperties):
         """
         return self._y
 
-    # Invert color. Adapted from https://stackoverflow.com/questions/50327186/how-to-invert-colors-in-tkinters-canvas
+    # If text color isnt set, create as high contrast color (invert background color)
+    # Adapted from https://stackoverflow.com/questions/50327186/how-to-invert-colors-in-tkinters-canvas
     def _invert_color(self, color):
         rgb = self._parent.winfo_rgb(color) if type(color) == str else color
         rgb = (65535-rgb[0], 65535-rgb[1], 65535-rgb[2])

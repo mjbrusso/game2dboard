@@ -445,7 +445,7 @@ class Board(UserList):
                 newcell = game2dboard.Cell(self._canvas, x, y)
                 newcell.bgcolor = self._cell_color
                 self._cells[r][c] = newcell
-                if self[r][c] != None:                      # Cell already has a value
+                if self[r][c] != None:                       # Cell has a value
                     self._notify_change(r, c, self[r][c])    # show it
 
         self._canvas.pack()

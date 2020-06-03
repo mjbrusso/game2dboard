@@ -2,10 +2,10 @@ import os
 import sys
 from tkinter import PhotoImage
 
-# Singleton Pattern
-
+# A cache to store images
 
 class ImageMap():
+    # Singleton Pattern
     __shared_instance = None
 
     def __init__(self):
@@ -24,11 +24,12 @@ class ImageMap():
         if not key in self._dict:
             fname = self._imgpath + value
             if not os.path.exists(fname):
-                fname += ".png"            # Is .png the default extension a good idea?
+                fname += ".png" 
                 if not os.path.exists(fname):
                     self._dict[key] = None
-                else:
-                    self._dict[key] = PhotoImage(file=fname)
+                    return
+                
+            self._dict[key] = PhotoImage(file=fname)
 
     def __getitem__(self, key):
         if not key in self._dict:

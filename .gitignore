@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+documentation/
 develop-eggs/
 dist/
 downloads/
@@ -131,6 +132,5 @@ dmypy.json
 # VS code
 tempCodeRunnerFile.py
 
-examples/TapTheMosquito
-documentation
+examples/TapTheMosquito/
 #examples/snake

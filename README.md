@@ -3,6 +3,12 @@
 A quick and easy way to create board games using 2d arrays in Python. 
 This Python GUI package provides a graphical user interface (GUI) for 2d arrays (matrix). 
 
+- What is the aim of this library?<br>
+The aim of the game2dboard is to offer an easy and fun way for students who are new to programming to learn and code programs using arrays.
+
+- What types of games can be created?<br>
+Any that can be modeled on a two-dimensional array, such as checkers, life, tic-tac-toe, chess, 2048, minefield, among many others.
+
 ## Installation
 
 You can use the `pip` to install **game2dboard**:
@@ -27,9 +33,7 @@ The API is documented [bellow](#API) and within the docstrings.
 
 This simple example only provides an overview. See the examples for more details. 
 
-Before running, copy [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/0.png) and [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/1.png) files into a `img/` folder.
-
-<img align="right" style="width:245; height:197; padding-top:50px" src="https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/basic.png">
+Before running, copy [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/0.png) and [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/1.png) files into a `img/` folder [(credits)](https://publicdomainvectors.org).
 
 ```python
 from game2dboard import Board
@@ -47,6 +51,9 @@ b.on_mouse_click = mouse_fn
 b.show()
 ```
 
+#### Result
+
+![Screnshot](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/basic.png)
 
 ## Galery
 
@@ -67,8 +74,30 @@ Creates a Board.
   - `nrows` : *int* – The number of rows.
   - `ncols` : *int* – The number of columns.
 
+### Indexer
+
+- `self[i][j]`<br>
+  Gets/sets the value at row `i`, column `j`. 
+  
+  When assigning a value, the GUI will be updated. If there is an **.png** file in the `img/` folder whose name is the same as the new value, it will be drawn in position `[i][j]` of the board. Otherwise, the value will be displayed as text.
+
+  Example:
+  ```python
+    b[1][0] = 100            # draw 'img/100.png' @ row 1, column 0
+    b[0][2] = "correct"      # draw 'img/correct.png'
+    b[3][0] = "wait.png"     # draw 'img/wait.png'
+  ```
 
 ### Properties
+
+Use properties as class attributes or public fields.<br>Example:
+  ```python
+    b.title = "Hello"       # Sets the window title
+    mc = b.margin_color     # Gets the board margin_color
+  ```
+#### Board properties
+
+
 - `size` : *int* (readonly)<br> 
 Number of elements in the array  
 
