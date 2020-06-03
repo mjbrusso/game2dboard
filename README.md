@@ -18,34 +18,35 @@ python3 setup.py install --user
 
 The API is documented [bellow](#API) and within the docstrings. 
 
-This simple example only provides an overview. See the examples for more details.
+This simple example only provides an overview. See the examples for more details. 
+
+Before running, copy [this](https://github.com/mjbrusso/game2dboard/examples/basic/img/0.png) and [this](https://github.com/mjbrusso/game2dboard/examples/basic/img/1.png) files into a `img/` folder.
+
+<img align="right" style="width:245; height:197; padding-top:50px" src="images/basic.png">
 
 ```python
 from game2dboard import Board
 
-def mouse_fn(btn, row, col):
-    if btn==1 or btn==4:
-        b[row][col] += 1
-    else:
-        b[row][col] -= 1
 
-b = Board(4, 4)
-b.cell_size = 100
-b.fill(0)
-b.cell_color = "white"
-b.grid_color = "black"
-b[1][0] = 10
+def mouse_fn(btn, row, col):    # mouse calback function
+    b[row][col] = 1 if not b[row][col] else 0
+
+b = Board(3, 4)         # 3 rows, 4 columns, filled w/ None
+b[0][0] = 1
+b.title = "Click me!"
+b.cell_size = 120       
+b.cell_color = "bisque"
 b.on_mouse_click = mouse_fn
-b.create_output()
-b.print("<left-button>: ++    <right button>: --")
 b.show()
 ```
+
+
 ## Galery
 
 
-|![memory game](images/memory.png) |  ![snake](images/snake.png) |
+|![memory game](https://github.com/mjbrusso/game2dboard/images/memory.png) |  ![snake](https://github.com/mjbrusso/game2dboard/images/snake.png) |
 |:---:|:---:|
-| **Memory Game**<br>54 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame)| **Snake**<br>87 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
+| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/examples/memorygame)| **Snake**<br>87 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/examples/snake) | 
 
 
 
@@ -60,16 +61,16 @@ Creates a Board.
 
 
 ### Properties
-- `size` : *int*<br> 
-Number of elements in the array (readonly) 
+- `size` : *int* (readonly)<br> 
+Number of elements in the array  
 
 
-- `nrows` : *int*<br> 
-Number of rows in the array (readonly).
+- `nrows` : *int* (readonly)<br> 
+Number of rows in the array.
 
 
-- `ncols` : *int*<br> 
-Number of columns in the array (readonly).
+- `ncols` : *int* (readonly)<br> 
+Number of columns in the array.
 
 
 - `title` : *str*<br> 

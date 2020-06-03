@@ -32,7 +32,6 @@ def timer_fn():
         head_row -= 1
     elif lastkey == "Down":
         head_row += 1
-
     caught = False
     if head_col < 0 or head_col >= FIELD_WIDTH or head_row < 0 or head_row >= FIELD_HEIGHT or [head_row, head_col] in snake:
         field.stop_timer()
@@ -44,9 +43,8 @@ def timer_fn():
     elif field[head_row][head_col] == "fruit":
         fruit_random_position()
         caught = True
-
     field[head_row][head_col] = 'body'
-    snake.insert(0, [head_row, head_col])
+    snake.insert(0, (head_row, head_col))
     last_row, last_col = snake[-1]
     if not caught:
         field[last_row][last_col] = None
@@ -67,7 +65,7 @@ def setup():
     w2 = FIELD_WIDTH // 2      # field center
     h2 = FIELD_HEIGHT // 2
     field.fill(None)
-    snake = [[h2, w2], [h2, w2+1]]      # Initial snake position
+    snake = [(h2, w2), (h2, w2+1)]      # Initial snake position
     for pos in snake:
         field[pos[0]][pos[1]] = 'body'  # Draw the snake
     fruit_random_position()
