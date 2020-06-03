@@ -202,4 +202,4 @@ If you can improve anything in this project, feel free to add a [pull request](h
 
 ## License
 
-game2darray is under MIT license.It can be reused within proprietary software provided that all copies of the licensed software include a copy of the MIT License terms and the copyright notice.
+game2dboard is under [MIT license](https://github.com/mjbrusso/game2dboard/blob/master/LICENSE). It can be reused within proprietary software provided that all copies of the licensed software include a copy of the MIT License terms and the copyright notice.
