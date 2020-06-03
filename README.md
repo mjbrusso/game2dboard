@@ -5,6 +5,13 @@ This Python GUI package provides a graphical user interface (GUI) for 2d arrays 
 
 ## Installation
 
+You can use the `pip` to install **game2dboard**:
+
+```
+pip3 install game2dboard
+```
+
+
 Install the latest release by cloning the repository:
 
 ```bash
@@ -175,6 +182,23 @@ Warning: long pause freezes the GUI!
 
 ## TO DO 
 To do.... ;-)
+
+
+## How to Contribute
+
+### Submitting an issue
+
+Use the [issue tracker](https://github.com/mjbrusso/game2dboard/issues) to submit bug reports and features or enhancements requests.
+
+
+### Translating
+
+You can contribute by translating this document into other languages ​​(except *en* and *pt_br*).
+
+### Submitting a pull request
+
+If you can improve anything in this project, feel free to add a [pull request](https://github.com/mjbrusso/game2dboard/pulls).
+
 
 ## License
 
