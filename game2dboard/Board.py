@@ -66,14 +66,14 @@ class Board(UserList):
 
     # Properties
     # ---------------------------------------------------------------
-    
+
     @property
     def size(self):
         """
 
         Number of elements in the array (readonly).
 
-        :type: int 
+        :type: int
         """
         return self._nrows * self._ncols
 
@@ -83,7 +83,7 @@ class Board(UserList):
 
         Number of rows in the array (readonly).
 
-        :type: int 
+        :type: int
         """
         return self._nrows
 
@@ -93,7 +93,7 @@ class Board(UserList):
 
         Number of columns in the array (readonly).
 
-        :type: int 
+        :type: int
         """
         return self._ncols
 
@@ -223,7 +223,8 @@ class Board(UserList):
         if not type(value) is tuple:
             v = int(value)
             value = (v, v)
-        game2dboard.Cell.size = value    # All cells has same size (class field)
+        # All cells has same size (class field)
+        game2dboard.Cell.size = value
         self._resize()
 
     # Events
@@ -306,48 +307,42 @@ class Board(UserList):
         self._isrunning = True
         self._root.mainloop()
 
-    def start_timer(self, msecs):
+    def clear(self):
         """
 
-        Start a periodic timer that executes the a function every msecs milliseconds
-
-        The callback function must be registered using .on_timer property.
-
-        :param int msecs: Time in milliseconds.
+        Clear the board, setting all values to None.
         """
-        if msecs != self._timer_interval:                       # changed
-            self.stop_timer()
-            self._timer_interval = msecs
-            if msecs > 0 and not self._is_in_timer_calback:
-                self._after_id = self._root.after(msecs, self._timer_clbk)
+        self.fill(None)
 
-    def stop_timer(self):
+    def close(self):
         """
 
-        Stops the current timer.
+        Close the board, exiting the program.
         """
-        self._timer_interval = 0
-        if self._after_id:
-            self._root.after_cancel(self._after_id)
-            self._after_id = None
+        self._root.quit()
+        self._root.update()
 
-    def pause(self, msecs, change_cursor=True):
+    def create_output(self, **kwargs):
         """
 
-        Delay the program execution for a given number of milliseconds.  
-        
-        Warning: long pause freezes the GUI!
-
-        :param int msecs: Time in milliseconds.
-        :param bool change_cursor: Change the cursor to "watch" during pause?
+        Create a output message bar.
+        kwargs:
+            color = str
+            background_color` = str
+            font_size = int
         """
-        if change_cursor:
-            oldc = self.cursor
-            self.cursor = "watch"
-        self._root.update_idletasks()
-        self._root.after(msecs)
-        if change_cursor:
-            self.cursor = oldc
+        if self._msgbar is None:
+            self._msgbar = game2dboard.OutputBar(self._root, **kwargs)
+
+    def print(self, *objects, sep=' ', end=''):
+        """
+
+        Print message to output bar.
+        Use like standard print() function.
+        """
+        if self._msgbar:
+            s = sep.join(str(obj) for obj in objects) + end
+            self._msgbar.show(s)
 
     def shuffle(self):
         """
@@ -386,42 +381,50 @@ class Board(UserList):
         else:
             raise Exception("Invalid argument supplied (row= AND col=)")
 
-    def clear(self):
+
+    def start_timer(self, msecs):
         """
 
-        Clear the board, setting all values to None.
-        """
-        self.fill(None)
+        Start a periodic timer that executes the a function every msecs milliseconds
 
-    def close(self):
-        """
+        The callback function must be registered using .on_timer property.
 
-        Close the board, exiting the program.
+        :param int msecs: Time in milliseconds.
         """
-        self._root.quit()
-        self._root.update()
+        if msecs != self._timer_interval:                       # changed
+            self.stop_timer()
+            self._timer_interval = msecs
+            if msecs > 0 and not self._is_in_timer_calback:
+                self._after_id = self._root.after(msecs, self._timer_clbk)
 
-    def create_output(self, **kwargs):
-        """
 
-        Create a output message bar.
-        kwargs:
-            color = str
-            background_color` = str
-            font_size = int
-        """
-        if self._msgbar is None:
-            self._msgbar = game2dboard.OutputBar(self._root, **kwargs)
-
-    def print(self, *objects, sep=' ', end=''):
+    def stop_timer(self):
         """
 
-        Print message to output bar. 
-        Use like standard print() function.
-        """        
-        if self._msgbar:
-            s = sep.join(str(obj) for obj in objects) + end
-            self._msgbar.show(s)
+        Stops the current timer.
+        """
+        self._timer_interval = 0
+        if self._after_id:
+            self._root.after_cancel(self._after_id)
+            self._after_id = None
+
+    def pause(self, msecs, change_cursor=True):
+        """
+
+        Delay the program execution for a given number of milliseconds.  
+        
+        Warning: long pause freezes the GUI!
+
+        :param int msecs: Time in milliseconds.
+        :param bool change_cursor: Change the cursor to "watch" during pause?
+        """
+        if change_cursor:
+            oldc = self.cursor
+            self.cursor = "watch"
+        self._root.update_idletasks()
+        self._root.after(msecs)
+        if change_cursor:
+            self.cursor = oldc
 
     # Internal functions
     # ---------------------------------------------------------------

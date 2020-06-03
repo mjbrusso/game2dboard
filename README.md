@@ -43,7 +43,7 @@ b.show()
 
 ## Galery
 
-Some screenshoots from examples.
+Some screenshots from examples.
 
 |![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png) |  ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png) |
 |:---:|:---:|
@@ -125,6 +125,37 @@ Gets or sets the timer callback function
 Create the GUI, display and enter the run loop.
 
 
+- `clear()`<br>
+Clear the board, setting all values to `None`.
+
+
+- `close()`<br>
+Close the board, exiting the program.
+
+
+- `shuffle()`<br>
+Random shuffle all values in the board
+
+
+- `fill(value, row=None, col=None)`<br>
+Fill the board (or a row, or a column) with a value
+    - `value` – The value to store
+    - `row` (*int*) – Index of row to fill. Default=`None` (all rows)
+    - `col` (*int*) – Index of column to fill. Default=`None` (all columns)
+
+
+- `create_output(**kwargs)`<br>
+Create a output message bar.
+    - `kwargs`:
+      - `color` = *str*
+      - `background_color` = *str*
+      - `font_size` = *int*
+
+- `print(*objects, sep=' ', end='')`<br>
+Print message to output bar. <br>
+Use like built-in `print()` function.
+
+
 - `start_timer(msecs)`<br>
 Start a periodic timer that executes the a function every `msecs` milliseconds<br>
 The callback function must be registered using `.on_timer` property.
@@ -140,37 +171,6 @@ Delay the program execution for a given number of milliseconds.<br>
 Warning: long pause freezes the GUI!
     - `msecs` (*int*) – Time in milliseconds.
     - `change_cursor` (*bool*) – Change the cursor to “watch” during pause?
-
-
-- `shuffle()`<br>
-Random shuffle all values in the board
-
-
-- `fill(value, row=None, col=None)`<br>
-Fill the board (or a row, or a column) with a value
-    - `value` – The value to store
-    - `row` (*int*) – Index of row to fill. Default=`None` (all rows)
-    - `col` (*int*) – Index of column to fill. Default=`None` (all columns)
-
-
-- `clear()`<br>
-Clear the board, setting all values to `None`.
-
-
-- `close()`<br>
-Close the board, exiting the program.
-
-
-- `create_output(**kwargs)`<br>
-Create a output message bar.
-    - `kwargs`:
-      - `color` = *str*
-      - `background_color` = *str*
-      - `font_size` = *int*
-
-- `print(*objects, sep=' ', end='')`<br>
-Print message to output bar. <br>
-Use like built-in `print()` function.
 
 
 ## TO DO 
