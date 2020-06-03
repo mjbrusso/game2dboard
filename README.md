@@ -20,9 +20,9 @@ The API is documented [bellow](#API) and within the docstrings.
 
 This simple example only provides an overview. See the examples for more details. 
 
-Before running, copy [this](https://github.com/mjbrusso/game2dboard/examples/basic/img/0.png) and [this](https://github.com/mjbrusso/game2dboard/examples/basic/img/1.png) files into a `img/` folder.
+Before running, copy [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/0.png) and [this](https://github.com/mjbrusso/game2dboard/blob/master/examples/basic/img/1.png) files into a `img/` folder.
 
-<img align="right" style="width:245; height:197; padding-top:50px" src="images/basic.png">
+<img align="right" style="width:245; height:197; padding-top:50px" src="https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/basic.png">
 
 ```python
 from game2dboard import Board
@@ -43,10 +43,11 @@ b.show()
 
 ## Galery
 
+Some screenshoots from examples.
 
-|![memory game](https://github.com/mjbrusso/game2dboard/images/memory.png) |  ![snake](https://github.com/mjbrusso/game2dboard/images/snake.png) |
+|![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png) |  ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png) |
 |:---:|:---:|
-| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/examples/memorygame)| **Snake**<br>87 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/examples/snake) | 
+| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame)| **Snake**<br>87 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
 
 
 
