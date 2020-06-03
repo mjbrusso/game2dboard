@@ -4,7 +4,7 @@ A quick and easy way to create board games using 2d arrays in Python.
 This Python GUI package provides a graphical user interface (GUI) for 2d arrays (matrix). 
 
 - What is the aim of this library?<br>
-The aim of the game2dboard is to offer an easy and fun way for students who are new to programming to learn and code programs using arrays.
+I created this project to help my students from an introductory course on computer programming at the University of Passo Fundo (Brazil) to write programs with two-dimensional arrays in an easy and fun way. I think it can be useful for others.
 
 - What types of games can be created?<br>
 Any that can be modeled on a two-dimensional array, such as checkers, life, tic-tac-toe, chess, 2048, minefield, among many others.
@@ -90,10 +90,10 @@ Creates a Board.
 
 ### Properties
 
-Use properties as class attributes or public fields.<br>Example:
+Use properties to access board attributes, like public fields.<br>Example:
   ```python
     b.title = "Hello"       # Sets the window title
-    mc = b.margin_color     # Gets the board margin_color
+    sz = b.size             # Gets the total number of elements
   ```
 #### Board properties
 
@@ -137,23 +137,23 @@ See available color names in http://www.science.smith.edu/dftwiki/index.php/Colo
 
 
 - `grid_color` : *str*<br> 
-Gets or sets grid color
+Gets or sets grid color.
 
 
 - `cell_size` : *int | (int, int)*<br> 
-Gets or sets the cells dimension (*width*, *height*)
+Gets or sets the cells dimension (*width*, *height*).
 
 
 - `on_key_press` : *function(key: str)*<br>
-Gets or sets the keyboard callback function
+Gets or sets the keyboard callback function.
 
 
 - `on_mouse_click` : *function(button: str, row: int, col: int)*<br>
-Gets or sets the mouse callback function
+Gets or sets the mouse callback function.
 
 
 - `on_timer` :  *function()*<br>
-Gets or sets the timer callback function
+Gets or sets the timer callback function.
 
 ### Methods
 
@@ -170,11 +170,11 @@ Close the board, exiting the program.
 
 
 - `shuffle()`<br>
-Random shuffle all values in the board
+Random shuffle all values in the board.
 
 
 - `fill(value, row=None, col=None)`<br>
-Fill the board (or a row, or a column) with a value
+Fill the board (or a row, or a column) with a value.
     - `value` – The value to store
     - `row` (*int*) – Index of row to fill. Default=`None` (all rows)
     - `col` (*int*) – Index of column to fill. Default=`None` (all columns)
@@ -204,13 +204,16 @@ Stops the current timer.
 
 - `pause(msecs, change_cursor=True)`<br>
 Delay the program execution for a given number of milliseconds.<br>
-Warning: long pause freezes the GUI!
+**Warning:** long pause freezes the GUI!
     - `msecs` (*int*) – Time in milliseconds.
     - `change_cursor` (*bool*) – Change the cursor to “watch” during pause?
 
 
-## TO DO 
-To do.... ;-)
+## What's in the roadmap? 
+
+- `redim(new_ncols, new_nrows)` : Useful to grow or shrink the board, for example, on level up.
+- `beep()`: Play a beep...
+- `play_sound(file)` : Play a SFX from a audio file.
 
 
 ## How to Contribute
