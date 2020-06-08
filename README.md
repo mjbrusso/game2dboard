@@ -145,8 +145,8 @@ Gets or sets the cells dimension (*width*, *height*).
 
 
 - `on_key_press` : *function(key: str)*<br>
-Gets or sets the keyboard callback function.
-
+Gets or sets the keyboard callback function.<br>
+See key names in https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/key-names.html 
 
 - `on_mouse_click` : *function(button: str, row: int, col: int)*<br>
 Gets or sets the mouse callback function.

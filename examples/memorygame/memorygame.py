@@ -18,18 +18,18 @@ def fnmouse(btn, r, c):
         reversed_cards += 1
         if reversed_cards == 2:
             attempts_count += 1
-            game.print(MSG, "  ({})".format(attempts_count))
-            reversed_cards = 0
+            game.print(MSG, "   #", attempts_count)
             # if two cards are equals.
             if game[r][c] == game[previous_row][previous_col]:
-                match_count += 2
-                if match_count == 16:             # Game end
+                match_count += 1
+                if match_count == 8:             # Game end
                     game.print("You won!  Total: ", attempts_count,
                                " attempts!\tF2: Play again")
             else:                                     # Not match: "un"flip both cards
                 game.pause(500)
                 game[r][c] -= 10
                 game[previous_row][previous_col] -= 10
+            reversed_cards = 0
         previous_row = r                                # Save last position
         previous_col = c
 

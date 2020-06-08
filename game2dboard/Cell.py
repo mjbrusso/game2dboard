@@ -31,7 +31,7 @@ class Cell(object, metaclass=CellProperties):
         self._x = x
         self._y = y
         self._bgcolor = "white"
-        self._text_color = ""
+        self._text_color = "black"
         self._id = parent.create_rectangle(
             x,
             y,
@@ -92,9 +92,9 @@ class Cell(object, metaclass=CellProperties):
     def bgcolor(self, value):
         self._bgcolor = value
         self._parent.itemconfig(self._id, fill=value)   # Change bg color
-        self._text_color = self._invert_color(value)
-        self._parent.itemconfig(
-            self._image_id, fill=self._text_color)  # Change text color
+        # self._text_color = self._invert_color(value)
+        #self._parent.itemconfig(
+        #     self._image_id, fill=self._text_color)  # Change text color
 
     @property
     def x(self):
