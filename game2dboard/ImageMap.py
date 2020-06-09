@@ -19,17 +19,19 @@ class ImageMap():
             cls.__shared_instance = cls()
         return cls.__shared_instance
 
+    def load(self, value):
+        fname = self._imgpath + value
+        if not os.path.exists(fname):
+            fname += ".png"
+            if not os.path.exists(fname):
+                return None
+
+        return PhotoImage(file=fname)
+
     def __setitem__(self, key, value):
         value = str(value)
         if not key in self._dict:
-            fname = self._imgpath + value
-            if not os.path.exists(fname):
-                fname += ".png" 
-                if not os.path.exists(fname):
-                    self._dict[key] = None
-                    return
-                
-            self._dict[key] = PhotoImage(file=fname)
+            self._dict[key] = self.load(value)
 
     def __getitem__(self, key):
         if not key in self._dict:

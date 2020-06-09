@@ -54,5 +54,5 @@ game.title = "Memory Game"
 game.create_output(background_color="wheat4", color="white")
 game.on_mouse_click = fnmouse
 game.on_key_press = fnkbd
-newgame()
+game.on_start = newgame
 game.show()

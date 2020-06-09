@@ -27,11 +27,11 @@ class Cell(object, metaclass=CellProperties):
     def __init__(self, parent, x, y):
         self._image_id = None       # tkinter id from create_image
         self._value = None          # this value
-        self._parent = parent
+        self._canvas = parent
         self._x = x
         self._y = y
-        self._bgcolor = "white"
-        self._text_color = "black"
+        self._bgcolor = None
+        self._text_color = "darkorange"
         self._id = parent.create_rectangle(
             x,
             y,
@@ -59,20 +59,20 @@ class Cell(object, metaclass=CellProperties):
         if self._value != v:        # Only update when value change
             self._value = v
             if self._image_id:
-                self._parent.delete(self._image_id)    # clear current image
+                self._canvas.delete(self._image_id)    # clear current image
             if not v is None:
                 img = game2dboard.ImageMap.get_instance()[v]
                 hc = self._x + Cell.width // 2     # horizontal center
                 vc = self._y + Cell.height // 2    # vertical center
                 # Show image|text @ canvas center
                 if img:
-                    self._image_id = self._parent.create_image(  # Draw a image
+                    self._image_id = self._canvas.create_image(  # Draw a image
                         hc,
                         vc,
                         anchor=CENTER,
                         image=img)
                 else:
-                    self._image_id = self._parent.create_text(  # or just draw the value as text
+                    self._image_id = self._canvas.create_text(  # or just draw the value as text
                         hc,
                         vc,
                         anchor=CENTER,
@@ -91,10 +91,8 @@ class Cell(object, metaclass=CellProperties):
     @bgcolor.setter
     def bgcolor(self, value):
         self._bgcolor = value
-        self._parent.itemconfig(self._id, fill=value)   # Change bg color
-        # self._text_color = self._invert_color(value)
-        #self._parent.itemconfig(
-        #     self._image_id, fill=self._text_color)  # Change text color
+        self._canvas.itemconfig(self._id, fill=value)   # Change bg color
+
 
     @property
     def x(self):
@@ -110,9 +108,3 @@ class Cell(object, metaclass=CellProperties):
         """
         return self._y
 
-    # If text color isnt set, create as high contrast color (invert background color)
-    # Adapted from https://stackoverflow.com/questions/50327186/how-to-invert-colors-in-tkinters-canvas
-    def _invert_color(self, color):
-        rgb = self._parent.winfo_rgb(color) if type(color) == str else color
-        rgb = (65535-rgb[0], 65535-rgb[1], 65535-rgb[2])
-        return "#%04x%04x%04x" % (rgb)

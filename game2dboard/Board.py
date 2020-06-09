@@ -4,7 +4,7 @@ import random
 from collections import UserList
 
 # TODO:
-#       rezize(r, c), self[i] = [...], beep(), play_sound(), ...
+#     background_image = "",  rezize(r, c), self[i] = [...], beep(), play_sound(), ...
 
 
 class Board(UserList):
@@ -43,10 +43,12 @@ class Board(UserList):
         self._margin_color = "light grey"     # default border color
         self._cell_color = "white"            # default cell color
         self._grid_color = "black"            # default grid color
+        # The window
         self._root = Tk()
-        # cell's container
+        # cell's container        
         self._canvas = Canvas(self._root, highlightthickness=0)
         # event bindings
+        self._on_start = None               # game started
         self._on_key_press = None           # user key press callback
         self._on_mouse_click = None         # user mouse callback
         self._timer_interval = 0            # ms
@@ -96,6 +98,26 @@ class Board(UserList):
         :type: int
         """
         return self._ncols
+
+    @property
+    def width(self):
+        """
+
+        Board width, in px. Only available after .show() (readonly).
+
+        :type: int
+        """
+        return self._root.winfo_reqwidth()
+
+    @property
+    def height(self):
+        """
+
+        Board height, in px. Only available after .show() (readonly).
+
+        :type: int
+        """
+        return self._root.winfo_reqheight()
 
     @property
     def title(self):
@@ -161,7 +183,7 @@ class Board(UserList):
         if self._isrunning:
             raise Exception("Can't update cell_spacing after show()")
         self._cell_spacing = value
-        self._resize()
+        self._resize_canvas()
 
     @property
     def margin_color(self):
@@ -228,10 +250,35 @@ class Board(UserList):
             value = (v, v)
         # All cells has same size (class field)
         game2dboard.Cell.size = value
-        self._resize()
+        self._resize_canvas()
+             
+
+    # Private properties
+    @property
+    def _canvas_width(self):
+        return self._ncols * (game2dboard.Cell.width + self.cell_spacing) - self.cell_spacing
+
+    @property
+    def _canvas_height(self):
+        return self._nrows * (game2dboard.Cell.height + self.cell_spacing) - self.cell_spacing
 
     # Events
     # ---------------------------------------------------------------
+
+    # Game state events
+    @property
+    def on_start(self):
+        """
+        Gets or sets the game started callback function.
+        The GUI is ready and the program is going to enter the main loop.
+
+        :type: function()
+        """
+        return self._on_start
+
+    @on_start.setter
+    def on_start(self, value):
+        self._on_start = value
 
     # Keyboard events
     @property
@@ -308,6 +355,8 @@ class Board(UserList):
         """
         self._setupUI()
         self._isrunning = True
+        if callable(self._on_start):
+            self._on_start()
         self._root.mainloop()
 
     def clear(self):
@@ -334,8 +383,11 @@ class Board(UserList):
             background_color` = str
             font_size = int
         """
-        if self._msgbar is None:
-            self._msgbar = game2dboard.OutputBar(self._root, **kwargs)
+        if self._isrunning:
+            raise Exception("Can't create output after run()")
+        elif self._msgbar is None:
+            self._msgbar = game2dboard.OutputBar(
+                self._root, self.cell_spacing, **kwargs)
 
     def print(self, *objects, sep=' ', end=''):
         """
@@ -384,7 +436,6 @@ class Board(UserList):
         else:
             raise Exception("Invalid argument supplied (row= AND col=)")
 
-
     def start_timer(self, msecs):
         """
 
@@ -400,7 +451,6 @@ class Board(UserList):
             if msecs > 0 and not self._is_in_timer_calback:
                 self._after_id = self._root.after(msecs, self._timer_clbk)
 
-
     def stop_timer(self):
         """
 
@@ -415,7 +465,7 @@ class Board(UserList):
         """
 
         Delay the program execution for a given number of milliseconds.  
-        
+
         Warning: long pause freezes the GUI!
 
         :param int msecs: Time in milliseconds.
@@ -429,17 +479,18 @@ class Board(UserList):
         if change_cursor:
             self.cursor = oldc
 
-    # Internal functions
+    # Private methods
     # ---------------------------------------------------------------
 
     def _setupUI(self):
-        self._root.resizable(False, False)            # Window is not resizable
-        self.margin_color = self._margin_color        # Paint background
-        self.grid_color = self._grid_color            # Table inner lines
-        self.cell_color = self._cell_color            # Cells background
-        self.margin = self._margin                    # Change root's margin
-        self.cell_spacing = self._cell_spacing        # Change root's padx/y
-        self.title = self._title                      # Update window's title
+        # Window is not resizable
+        self._root.resizable(False, False)
+        self.margin_color = self._margin_color          # Paint background
+        self.grid_color = self._grid_color              # Table inner lines
+        self.cell_color = self._cell_color              # Cells background
+        self.margin = self._margin                      # Change root's margin
+        self.cell_spacing = self._cell_spacing          # Change root's padx/y
+        self.title = self._title                        # Update window's title
         self.cursor = self._cursor
         # Create all cells
         for r in range(self._nrows):
@@ -459,9 +510,9 @@ class Board(UserList):
             self._cells[row][col].value = new_value
 
     # Config the canvas size
-    def _resize(self):
-        self._canvas.config(width=self._ncols*(game2dboard.Cell.width+self.cell_spacing)-self.cell_spacing,
-                            height=self._nrows*(game2dboard.Cell.height+self.cell_spacing)-self.cell_spacing)
+    def _resize_canvas(self):
+        self._canvas.config(width=self._canvas_width,
+                            height=self._canvas_height)
 
     # Translate [row][col] to canvas coordinates
     def _rc2xy(self, row, col):

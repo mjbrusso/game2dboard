@@ -17,10 +17,10 @@ def kbdfn(key):
 [1]   : fill collumn[1]
 [2]   : fill row[2]
 [c]   : clear
-[t]   : start/stop timer
 [m]   : swap mouse cursor
 
-click : put/remove
+left click : put/remove monkey 
+right click: put fruit
         """)
     elif key == "r":
         b.shuffle()
@@ -37,25 +37,29 @@ click : put/remove
 
 def mousefn(btn, row, col):
     b.print("You clicked button {} on b[{}][{}]".format(btn, row, col))
-    b[row][col] = IMGID if not b[row][col] else None
+    if btn == 1:
+        b[row][col] = IMGID if not b[row][col] else None
+    elif btn==3:
+        b[row][col] = "fruit.png"
+
 
 def timerfn():
     b.print(datetime.datetime.now().strftime("[H]: Help      %H:%M:%S"))
 
+def startfn():
+    b[0][0] = 12
+    b[0][1] = "Hello"
+    b[0][2] = b[4][1] = IMGID
+    b[3][6] = "fruit.png"    
+
 b = Board(5, 15)
-b[0][0] = 12
-b[0][1] = "Hello"
-b[0][2] = b[4][1] = IMGID
-b[3][6] = "fruit.png"
 b.title = "Hello, World!"
-# See available cursor names in https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/cursors.html
-#b.cursor = "hand1"
-b.margin = 7
-b.cell_spacing = 1
+b.margin = 10
+b.cell_spacing = 6
 b.cell_size = (50, 40)
-# See color names in http://www.science.smith.edu/dftwiki/index.php/Color_Charts_for_TKinter
 b.margin_color = b.grid_color = "AntiqueWhite4"
 b.cell_color = "AntiqueWhite1"
+b.on_start = startfn
 b.on_key_press = kbdfn
 b.on_mouse_click = mousefn
 b.on_timer = timerfn

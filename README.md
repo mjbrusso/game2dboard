@@ -59,9 +59,9 @@ b.show()
 
 Some screenshots from examples.
 
-|![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png) |  ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png) |
-|:---:|:---:|
-| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame)| **Snake**<br>86 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) | 
+|           ![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png)            |         ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png)          |
+| :------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame) | **Snake**<br>86 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) |
 
 
 
@@ -97,7 +97,6 @@ Use properties to access board attributes like public fields.<br>Example:
   ```
 #### Board properties
 
-
 - `size` : *int* (readonly)<br> 
 Number of elements in the array  
 
@@ -108,6 +107,14 @@ Number of rows in the array.
 
 - `ncols` : *int* (readonly)<br> 
 Number of columns in the array.
+
+
+- `width` : *int* (readonly)<br> 
+Board width, in px. Only available after .show()
+
+
+- `height` : *int* (readonly)<br> 
+Board height, in px. Only available after .show()
 
 
 - `title` : *str*<br> 
@@ -133,7 +140,7 @@ Gets or sets the margin color.
 
 - `cell_color` : *str*<br> 
 Gets or sets cells color<br>
-See available color names in http://www.science.smith.edu/dftwiki/index.php/Color_Charts_for_TKinter
+See available color names in https://htmlcolorcodes.com/color-names/
 
 
 - `grid_color` : *str*<br> 
@@ -143,6 +150,11 @@ Gets or sets grid color.
 - `cell_size` : *int | (int, int)*<br> 
 Gets or sets the cells dimension (*width*, *height*).
 
+##### Event properties
+
+- `on_start` : *function()*<br>
+Gets or sets the game started callback function.<br>
+The GUI is ready and the program is going to enter the main loop.
 
 - `on_key_press` : *function(key: str)*<br>
 Gets or sets the keyboard callback function.<br>
