@@ -372,7 +372,7 @@ class Board(UserList):
         Close the board, exiting the program.
         """
         self._root.quit()
-        self._root.update()
+
 
     def create_output(self, **kwargs):
         """
