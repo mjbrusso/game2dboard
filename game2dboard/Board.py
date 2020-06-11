@@ -4,7 +4,7 @@ import random
 from collections import UserList
 
 # TODO:
-#     background_image = "",  rezize(r, c), self[i] = [...], beep(), play_sound(), ...
+#   rezize(r, c), self[i] = [...], beep(), play_sound(), ...
 
 
 class Board(UserList):
@@ -45,8 +45,11 @@ class Board(UserList):
         self._grid_color = "black"            # default grid color
         # The window
         self._root = Tk()
-        # cell's container        
+        # cell's container
         self._canvas = Canvas(self._root, highlightthickness=0)
+        # rectange for grid color
+        self._bgrect = self._canvas.create_rectangle(1, 1, 2, 2, width=0)
+
         # event bindings
         self._on_start = None               # game started
         self._on_key_press = None           # user key press callback
@@ -167,7 +170,6 @@ class Board(UserList):
         if self._isrunning:
             raise Exception("Can't update margin after show()")
         self._margin = value
-        self._root.configure(padx=value, pady=value)
 
     @property
     def cell_spacing(self):
@@ -197,7 +199,7 @@ class Board(UserList):
     @margin_color.setter
     def margin_color(self, value):
         self._margin_color = value
-        self._root.configure(bg=value)
+        self._canvas.configure(bg=value)
 
     @property
     def cell_color(self):
@@ -229,7 +231,7 @@ class Board(UserList):
     @grid_color.setter
     def grid_color(self, value):
         self._grid_color = value
-        self._canvas.configure(bg=value)
+        self._canvas.itemconfig(self._bgrect, fill=value)
 
     @property
     def cell_size(self):
@@ -251,16 +253,15 @@ class Board(UserList):
         # All cells has same size (class field)
         game2dboard.Cell.size = value
         self._resize_canvas()
-             
 
     # Private properties
     @property
     def _canvas_width(self):
-        return self._ncols * (game2dboard.Cell.width + self.cell_spacing) - self.cell_spacing
+        return self._ncols * (game2dboard.Cell.width + self.cell_spacing) - self.cell_spacing + (2 * self.margin)
 
     @property
     def _canvas_height(self):
-        return self._nrows * (game2dboard.Cell.height + self.cell_spacing) - self.cell_spacing
+        return self._nrows * (game2dboard.Cell.height + self.cell_spacing) - self.cell_spacing + (2 * self.margin)
 
     # Events
     # ---------------------------------------------------------------
@@ -373,7 +374,6 @@ class Board(UserList):
         """
         self._root.quit()
 
-
     def create_output(self, **kwargs):
         """
 
@@ -387,7 +387,7 @@ class Board(UserList):
             raise Exception("Can't create output after run()")
         elif self._msgbar is None:
             self._msgbar = game2dboard.OutputBar(
-                self._root, self.cell_spacing, **kwargs)
+                self._root, **kwargs)
 
     def print(self, *objects, sep=' ', end=''):
         """
@@ -514,10 +514,15 @@ class Board(UserList):
         self._canvas.config(width=self._canvas_width,
                             height=self._canvas_height)
 
+        x1 = y1 = self.margin
+        x2 = self._canvas_width - x1
+        y2 = self._canvas_height - y1
+        self._canvas.coords(self._bgrect, x1, y1, x2, y2)
+
     # Translate [row][col] to canvas coordinates
     def _rc2xy(self, row, col):
-        x = col*(game2dboard.Cell.width+self.cell_spacing)
-        y = row*(game2dboard.Cell.height+self.cell_spacing)
+        x = col * (game2dboard.Cell.width + self.cell_spacing) + self.margin
+        y = row * (game2dboard.Cell.height + self.cell_spacing) + self.margin
         return (x, y)
 
     # Translate canvas coordinates to (row, col)
