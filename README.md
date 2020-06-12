@@ -160,7 +160,7 @@ The GUI is ready and the program is going to enter the main loop.
 Gets or sets the keyboard callback function.<br>
 See key names in https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/key-names.html 
 
-- `on_mouse_click` : *function(button: str, row: int, col: int)*<br>
+- `on_mouse_click` : *function(button: int, row: int, column: int)*<br>
 Gets or sets the mouse callback function.
 
 

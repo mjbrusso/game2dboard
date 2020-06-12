@@ -5,7 +5,6 @@ killed = 0
 level = 1
 time = 1000
 
-
 def mousefn(btn, lin, col):
     global killed, level, total, time
     if game[lin][col] == "mosquito":

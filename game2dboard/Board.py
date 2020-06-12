@@ -34,35 +34,41 @@ class Board(UserList):
         self._nrows = nrows
         self._ncols = ncols
         self._isrunning = False
+
         # Array used to store cells elements (rectangles)
         self._cells = [[None] * ncols for _ in range(nrows)]
-        self._title = "game2dboard"           # Default window title
-        self._cursor = "arrow"                # Default mouse cursor
-        self._margin = 5                      # board margin (px)
-        self._cell_spacing = 1                # grid cell_spacing (px)
-        self._margin_color = "light grey"     # default border color
-        self._cell_color = "white"            # default cell color
-        self._grid_color = "black"            # default grid color
+
         # The window
         self._root = Tk()
         # cell's container
         self._canvas = Canvas(self._root, highlightthickness=0)
         # rectange for grid color
         self._bgrect = self._canvas.create_rectangle(1, 1, 2, 2, width=0)
+        self._bgimage_id = None
+        self._msgbar = None                 # message bar component
 
-        # event bindings
-        self._on_start = None               # game started
-        self._on_key_press = None           # user key press callback
-        self._on_mouse_click = None         # user mouse callback
+        # Fields for board properties
+        self._title = "game2dboard"             # default window title
+        self._cursor = "arrow"                  # default mouse cursor
+        self._margin = 5                        # default board margin (px)
+        self._cell_spacing = 1                  # default grid cell_spacing (px)
+        self._margin_color = "light grey"       # default border color
+        self._cell_color = "white"              # default cell color
+        self._grid_color = "black"              # default grid color
+        self._background_image = None           # background image file name
+        self._on_start = None                   # game started callback
+        self._on_key_press = None               # user key press callback
+        self._on_mouse_click = None             # user mouse callback
+        self._on_timer = None                   # user timer callback
+
+        # event
         self._timer_interval = 0            # ms
-        self._on_timer = None               # user timer callback
         self._after_id = None               # current timer id
         self._is_in_timer_calback = False
         # register internal key callback
         self._root.bind("<Key>", self._key_press_clbk)
         # register internal mouse callback
         self._canvas.bind("<ButtonPress>", self._mouse_click_clbk)
-        self._msgbar = None                 # message bar component
 
     def __getitem__(self, row):             # subscript getter: self[row]
         # Store last accessed row (NOT thread safe... )
@@ -185,7 +191,6 @@ class Board(UserList):
         if self._isrunning:
             raise Exception("Can't update cell_spacing after show()")
         self._cell_spacing = value
-        self._resize_canvas()
 
     @property
     def margin_color(self):
@@ -252,7 +257,33 @@ class Board(UserList):
             value = (v, v)
         # All cells has same size (class field)
         game2dboard.Cell.size = value
-        self._resize_canvas()
+
+    @property
+    def background_image(self):
+        """
+        Gets or sets the board's background image 
+
+        :type: str
+        """
+        return self._background_image
+
+    @background_image.setter
+    def background_image(self, value):
+        if self._background_image != value:
+            self._background_image = value
+            if self._bgimage_id:
+                self._canvas.delete(self._bgimage_id)    # clear current image
+            if not value is None:
+                self.grid_color = self.margin_color = self.cell_color = None
+                image = game2dboard.ImageMap.get_instance().load(value)
+                if not image is None:
+                    self._image_object = image
+                    self._bgimage_id = self._canvas.create_image(  # Draw a image
+                        1,
+                        1,
+                        anchor=NW,
+                        image=image)
+                    self._canvas.tag_lower(self._bgimage_id)
 
     # Private properties
     @property
@@ -492,6 +523,7 @@ class Board(UserList):
         self.cell_spacing = self._cell_spacing          # Change root's padx/y
         self.title = self._title                        # Update window's title
         self.cursor = self._cursor
+        self._resize_canvas()
         # Create all cells
         for r in range(self._nrows):
             for c in range(self._ncols):

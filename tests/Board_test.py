@@ -9,7 +9,6 @@ def add_test(f): all_tests.append(f)
 
 TIME_TO_CLOSE = 100
 
-
 def size_test():
     b = Board(3, 5)
     assert b.nrows == 3
