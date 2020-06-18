@@ -195,6 +195,8 @@ Fill the board (or a row, or a column) with a value.
     - `row` (*int*) – Index of row to fill. Default=`None` (all rows)
     - `col` (*int*) – Index of column to fill. Default=`None` (all columns)
 
+- `copy()`<br>
+Returns a shallow copy of the array (only data, not the GUI). 
 
 - `create_output(**kwargs)`<br>
 Create a output message bar.

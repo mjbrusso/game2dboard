@@ -469,6 +469,13 @@ class Board(UserList):
         else:
             raise Exception("Invalid argument supplied (row= AND col=)")
 
+    def copy(self):
+        """
+        Returns a shallow copy of the array (only data, not the GUI).  
+        """
+        return [[self[i][j] for j in range(self.ncols)] for i in range(self.nrows)] 
+
+
     def start_timer(self, msecs):
         """
 
