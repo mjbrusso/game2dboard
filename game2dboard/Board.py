@@ -42,6 +42,7 @@ class Board(UserList):
         self._root = Tk()
         # cell's container
         self._canvas = Canvas(self._root, highlightthickness=0)
+        self._background_image = None           # background image file name
         # rectange for grid color
         self._bgrect = self._canvas.create_rectangle(1, 1, 2, 2, width=0)
         self._bgimage_id = None
@@ -55,7 +56,7 @@ class Board(UserList):
         self._margin_color = "light grey"       # default border color
         self._cell_color = "white"              # default cell color
         self._grid_color = "black"              # default grid color
-        self._background_image = None           # background image file name
+        
         self._on_start = None                   # game started callback
         self._on_key_press = None               # user key press callback
         self._on_mouse_click = None             # user mouse callback
@@ -236,7 +237,7 @@ class Board(UserList):
     @grid_color.setter
     def grid_color(self, value):
         self._grid_color = value
-        self._canvas.itemconfig(self._bgrect, fill=value)
+        self._canvas.itemconfig(self._bgrect, fill=value if not value is None else '')
 
     @property
     def cell_size(self):
@@ -261,7 +262,8 @@ class Board(UserList):
     @property
     def background_image(self):
         """
-        Gets or sets the board's background image 
+        Gets or sets the board's background image
+         
 
         :type: str
         """
@@ -515,13 +517,18 @@ class Board(UserList):
 
     def _setupUI(self):
         # Window is not resizable
-        self._root.resizable(False, False)
-        self.margin_color = self._margin_color          # Paint background
-        self.grid_color = self._grid_color              # Table inner lines
-        self.cell_color = self._cell_color              # Cells background
+        self._root.resizable(False, False)       
+        self.background_image = self._background_image  # Draw background image 
+        if not self._background_image is None:
+            self.margin_color = self.grid_color = self.cell_color = None
+        else:
+            self.margin_color = self._margin_color          # Paint background
+            self.grid_color = self._grid_color              # Table internal lines
+            self.cell_color = self._cell_color              # Cells background
+
         self.margin = self._margin                      # Change root's margin
         self.cell_spacing = self._cell_spacing          # Change root's padx/y
-        self.title = self._title                        # Update window's title
+        self.title = self._title                        # Update window's title           
         self.cursor = self._cursor
         self._resize_canvas()
         # Create all cells

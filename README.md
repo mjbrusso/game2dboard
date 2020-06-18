@@ -125,6 +125,10 @@ Gets or sets the window title.
 Gets or sets the mouse cursor shape. Setting to `None` hides the cursor.<br>
 See avaliable cursor names in https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/cursors.html
 
+- `background_image` : *str*<br> 
+Gets or sets the background image file name. The **.png** file must be in the folder `img/`<br>
+Setting this property forces `grid_color`, `margin_color` and `cell_color` to `None`.
+
 
 - `margin` : *int*<br> 
 Gets or sets the board margin (px).
