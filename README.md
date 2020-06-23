@@ -3,14 +3,13 @@
 
 <BR CLEAR=”left” /> 
 
-A quick and easy way to create board games using 2d arrays in Python. 
-This Python GUI package provides a graphical user interface (GUI) for 2d arrays (matrix). 
+This Python GUI package provides a graphical user interface (GUI) for 2D arrays (matrix) to make it easy to create board-style games.
 
 - What is the aim of this library?<br>
 I created this project to help my students from an introductory course on computer programming at the University of Passo Fundo (Brazil) to write programs with two-dimensional arrays in an easy and fun way. I think it can be useful for others.
 
 - What types of games can be created?<br>
-Any that can be modeled on a two-dimensional array, such as checkers, life, tic-tac-toe, chess, 2048, minefield, among many others.
+Any game that can be represented as a two-dimensional array, such as checkers, life, tic-tac-toe, chess, 2048, minefield, among many others.
 
 ## Installation
 
