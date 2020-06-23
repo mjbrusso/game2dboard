@@ -59,10 +59,11 @@ b.show()
 
 Some screenshots from examples.
 
-|           ![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png)            |         ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png)          |
+| | |
 | :------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
-| **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame) | **Snake**<br>86 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) |
-| **Kill the mosquito**<br>75 SLOC w/ Background image and Sounds<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/KillTheMosquito) | &nbsp; |
+| ![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png) <br> **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame) | ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png) <br> **Snake**<br>86 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) |
+| ![kill the mosquito](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/killthemosquito.png) <br> **Kill the mosquito**<br>75 SLOC w/ Background image and Sounds<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/KillTheMosquito)     |         &nbsp;          |
+| | |
 
 
 
