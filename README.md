@@ -1,4 +1,7 @@
-# game2dboard
+
+# <img align="left" width="80" height="80" style="padding-right:50" src="images/logo80x80.png"> &nbsp;&nbsp;game2dboard  
+
+<BR CLEAR=”left” /> 
 
 A quick and easy way to create board games using 2d arrays in Python. 
 This Python GUI package provides a graphical user interface (GUI) for 2d arrays (matrix). 
@@ -244,7 +247,7 @@ bgm = AudioPlayer(bgm_file)
 bgm.volume = 50         # 50% volume
 bgm.play(loop=True)     # start playing
 
-# Audio player is lazy loaded (resources loading is delayed until the first time the song is played)
+# Audio player is lazy loaded: resources loading is delayed until the first call to play() method.
 explosion = AudioPlayer(os.path.join(os.path.dirname(__file__), 'explosion.mp3'))
 
 def timer_callback():
@@ -252,7 +255,7 @@ def timer_callback():
         explosion.play()
 ```
 
-For a full example using AudioPlayer, see [Kill the Mosquito](https://github.com/mjbrusso/game2dboard/tree/master/examples/KillTheMosquito)
+For a full example using AudioPlayer, see [Kill the Mosquito](https://github.com/mjbrusso/game2dboard/tree/master/examples/KillTheMosquito).
 
 ## What's in the roadmap? 
 
