@@ -245,11 +245,11 @@ bgm.volume = 50         # 50% volume
 bgm.play(loop=True)     # start playing
 
 # Audio player is lazy loaded (resources loading is delayed until the first time the song is played)
-shoot = AudioPlayer(os.path.join(os.path.dirname(__file__), 'shoot.mp3'))
+explosion = AudioPlayer(os.path.join(os.path.dirname(__file__), 'explosion.mp3'))
 
 def timer_callback():
     if collides(enemy, bullet):
-        shoot.play()
+        explosion.play()
 ```
 See **Tap the Mosquito** 
 
