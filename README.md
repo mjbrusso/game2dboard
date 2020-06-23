@@ -232,7 +232,7 @@ Delay the program execution for a given number of milliseconds.<br>
 
 To play sounds in the game, use my [audioplayer package](https://github.com/mjbrusso/AudioPlayer).
 
-**audioplayer** is a cross platform Python 3 package for playing sounds (mp3, wav, ...). It provides the key features of an audio player, such as opening a media file, playing (loop/block), pausing, resuming, stopping, and setting the playback volume.
+**audioplayer** is a cross platform Python 3 package for playing sounds (mp3, wav, ...). It provides the key features of an player, such as opening a media file, playing (loop/block), pausing, resuming, stopping, and setting the playback volume.
 
 ```python
 from audioplayer import AudioPlayer
@@ -251,7 +251,8 @@ def timer_callback():
     if collides(enemy, bullet):
         explosion.play()
 ```
-See **Tap the Mosquito** 
+
+For a full example using AudioPlayer, see [Kill the Mosquito](https://github.com/mjbrusso/game2dboard/tree/master/examples/KillTheMosquito)
 
 ## What's in the roadmap? 
 
