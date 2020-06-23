@@ -7,8 +7,8 @@ try:
 except ImportError:
     from Tkinter import Tk
 
-from .Board import Board
-from .Cell import Cell
-from .ImageMap import ImageMap
-from .OutputBar import OutputBar
+from .board import Board
+from .cell import Cell
+from .imagemap import ImageMap
+from .outputbar import OutputBar
 

@@ -10,8 +10,7 @@ class ImageMap():
 
     def __init__(self):
         self._dict = {}
-        self._imgpath = os.path.dirname(
-            os.path.realpath(sys.argv[0])) + "/img/"  # Script path
+        self._imgpath = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),  "img") 
 
     @classmethod
     def get_instance(cls):                  # Single instance
@@ -20,7 +19,7 @@ class ImageMap():
         return cls.__shared_instance
 
     def load(self, value):
-        fname = self._imgpath + value
+        fname = os.path.join(self._imgpath, value)
         if not os.path.exists(fname):
             fname += ".png"
             if not os.path.exists(fname):

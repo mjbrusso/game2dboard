@@ -62,6 +62,7 @@ Some screenshots from examples.
 |           ![memory game](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/memory.png)            |         ![snake](https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/snake.png)          |
 | :------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
 | **Memory Game**<br>58 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/memorygame) | **Snake**<br>86 SLOC<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/snake) |
+| **Kill the mosquito**<br>75 SLOC w/ Background image and Sounds<br>[View source](https://github.com/mjbrusso/game2dboard/tree/master/examples/KillTheMosquito) | &nbsp; |
 
 
 
@@ -226,12 +227,34 @@ Delay the program execution for a given number of milliseconds.<br>
     - `msecs` (*int*) – Time in milliseconds.
     - `change_cursor` (*bool*) – Change the cursor to “watch” during pause?
 
+## What about Sound?
+
+To play sounds in the game, use my [audioplayer package](https://github.com/mjbrusso/AudioPlayer).
+
+**audioplayer** is a cross platform Python 3 package for playing sounds (mp3, wav, ...). It provides the key features of an audio player, such as opening a media file, playing (loop/block), pausing, resuming, stopping, and setting the playback volume.
+
+```python
+from audioplayer import AudioPlayer
+import os
+
+# Background music 
+bgm_file = os.path.join(os.path.dirname(__file__), 'background.mp3')
+bgm = AudioPlayer(bgm_file)
+bgm.volume = 50         # 50% volume
+bgm.play(loop=True)     # start playing
+
+# Audio player is lazy loaded (resources loading is delayed until the first time the song is played)
+shoot = AudioPlayer(os.path.join(os.path.dirname(__file__), 'shoot.mp3'))
+
+def timer_callback():
+    if collides(enemy, bullet):
+        shoot.play()
+```
+See **Tap the Mosquito** 
 
 ## What's in the roadmap? 
 
 - `redim(new_ncols, new_nrows)` : Useful to grow or shrink the board, for example, on level up.
-- `beep()`: Play a beep...
-- `play_sound(file)` : Play a SFX from a audio file.
 
 
 ## How to Contribute

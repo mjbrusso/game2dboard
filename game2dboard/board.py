@@ -281,8 +281,8 @@ class Board(UserList):
                 if not image is None:
                     self._image_object = image
                     self._bgimage_id = self._canvas.create_image(  # Draw a image
-                        1,
-                        1,
+                        0,
+                        0,
                         anchor=NW,
                         image=image)
                     self._canvas.tag_lower(self._bgimage_id)

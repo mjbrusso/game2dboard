@@ -16,7 +16,7 @@ __keywords__ = [
 __url__ = "https://github.com/mjbrusso/game2dboard"
 
 __classifiers__ = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
     "Topic :: Education",
     "Topic :: Software Development :: User Interfaces",
