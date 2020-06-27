@@ -58,7 +58,7 @@ game.cursor = "crosshair"
 game.cell_size = 50
 game.margin = 0
 # From: https://opengameart.org/content/good-night
-game.background_image = "mountains at night.png"
+game.background_image = "mountainsatnight.png"
 game.on_mouse_click = mousefn
 game.on_key_press = tecladofn
 game.on_start = start
@@ -67,7 +67,7 @@ game.create_output(background_color="#606163",
                    color="pink",
                    font_size=12)
 
-sounds_dir = os.path.join(os.path.dirname(__file__), 'sounds')
+sounds_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sounds')
 mosquito_sound = AudioPlayer(os.path.join(
     sounds_dir, 'salamisound-2276970-mosquito-or-similar-in.mp3'))  # From https://www.salamisound.com/2276970-mosquito-or-similar-in
 # From https://opengameart.org/content/95-sfx-pack-beats-warrior-nian

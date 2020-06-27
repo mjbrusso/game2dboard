@@ -1,7 +1,7 @@
 
 # <img align="left" width="80" height="80" style="padding-right:50" src="images/logo80x80.png"> &nbsp;&nbsp;game2dboard  
 
-<BR CLEAR=”left” /> 
+<BR CLEAR="left" /> 
 
 This Python GUI package provides a graphical user interface (GUI) for 2D arrays (matrix) to make it easy to create board-style games.
 
@@ -199,8 +199,11 @@ Fill the board (or a row, or a column) with a value.
     - `row` (*int*) – Index of row to fill. Default=`None` (all rows)
     - `col` (*int*) – Index of column to fill. Default=`None` (all columns)
 
-- `copy()`<br>
-Returns a shallow copy of the array (only data, not the GUI). 
+- `copy_data()`<br>
+Returns a shallow copy of the array (only data, not the GUI) into a regular Python list (*of lists*). 
+
+- `load_data()`<br>
+Copy data from regular Python 2D array (list of lists) into the Board.
 
 - `create_output(**kwargs)`<br>
 Create a output message bar.
@@ -228,7 +231,7 @@ Stops the current timer.
 Delay the program execution for a given number of milliseconds.<br>
 **Warning:** long pause freezes the GUI!
     - `msecs` (*int*) – Time in milliseconds.
-    - `change_cursor` (*bool*) – Change the cursor to “watch” during pause?
+    - `change_cursor` (*bool*) – Change the cursor to "watch" during pause?
 
 ## What about Sound?
 
@@ -258,8 +261,9 @@ For a full example using AudioPlayer, see [Kill the Mosquito](https://github.com
 
 ## What's in the roadmap? 
 
+- `save_file(filename)` : Dump array data to a file
+- `load_file(filename)` : Restore array data from file
 - `redim(new_ncols, new_nrows)` : Useful to grow or shrink the board, for example, on level up.
-
 
 ## How to Contribute
 
@@ -280,3 +284,4 @@ If you can improve anything in this project, feel free to add a [pull request](h
 ## License
 
 game2dboard is under [MIT license](https://github.com/mjbrusso/game2dboard/blob/master/LICENSE). It can be reused within proprietary software provided that all copies of the licensed software include a copy of the MIT License terms and the copyright notice.
+

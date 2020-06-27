@@ -52,11 +52,12 @@ class Board(UserList):
         self._title = "game2dboard"             # default window title
         self._cursor = "arrow"                  # default mouse cursor
         self._margin = 5                        # default board margin (px)
-        self._cell_spacing = 1                  # default grid cell_spacing (px)
+        # default grid cell_spacing (px)
+        self._cell_spacing = 1
         self._margin_color = "light grey"       # default border color
         self._cell_color = "white"              # default cell color
         self._grid_color = "black"              # default grid color
-        
+
         self._on_start = None                   # game started callback
         self._on_key_press = None               # user key press callback
         self._on_mouse_click = None             # user mouse callback
@@ -237,7 +238,8 @@ class Board(UserList):
     @grid_color.setter
     def grid_color(self, value):
         self._grid_color = value
-        self._canvas.itemconfig(self._bgrect, fill=value if not value is None else '')
+        self._canvas.itemconfig(
+            self._bgrect, fill=value if not value is None else '')
 
     @property
     def cell_size(self):
@@ -263,7 +265,7 @@ class Board(UserList):
     def background_image(self):
         """
         Gets or sets the board's background image
-         
+
 
         :type: str
         """
@@ -469,12 +471,23 @@ class Board(UserList):
         else:
             raise Exception("Invalid argument supplied (row= AND col=)")
 
-    def copy(self):
+    def copy_data(self):
         """
-        Returns a shallow copy of the array (only data, not the GUI).  
+        Returns a shallow copy of the array (only data, not the GUI) into a regular Python list (of lists).  
         """
-        return [[self[i][j] for j in range(self.ncols)] for i in range(self.nrows)] 
+        return [[self[i][j] for j in range(self.ncols)] for i in range(self.nrows)]
 
+    def load_data(self, data):
+        """
+        Copy data from regular Python 2D array (list of lists) into the Board.  
+        """
+        if len(data) < self._nrows:
+            raise IndexError()
+        for r in range(self._nrows):
+            if len(data[r]) < self._ncols:
+                raise IndexError()
+            for c in range(self._ncols):
+                self[r][c] = data[r][c]
 
     def start_timer(self, msecs):
         """
@@ -524,8 +537,8 @@ class Board(UserList):
 
     def _setupUI(self):
         # Window is not resizable
-        self._root.resizable(False, False)       
-        self.background_image = self._background_image  # Draw background image 
+        self._root.resizable(False, False)
+        self.background_image = self._background_image  # Draw background image
         if not self._background_image is None:
             self.margin_color = self.grid_color = self.cell_color = None
         else:
@@ -535,7 +548,7 @@ class Board(UserList):
 
         self.margin = self._margin                      # Change root's margin
         self.cell_spacing = self._cell_spacing          # Change root's padx/y
-        self.title = self._title                        # Update window's title           
+        self.title = self._title                        # Update window's title
         self.cursor = self._cursor
         self._resize_canvas()
         # Create all cells
