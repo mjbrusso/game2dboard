@@ -199,10 +199,10 @@ Fill the board (or a row, or a column) with a value.
     - `row` (*int*) – Index of row to fill. Default=`None` (all rows)
     - `col` (*int*) – Index of column to fill. Default=`None` (all columns)
 
-- `copy_data()`<br>
+- `copy()`<br>
 Returns a shallow copy of the array (only data, not the GUI) into a regular Python list (*of lists*). 
 
-- `load_data()`<br>
+- `load()`<br>
 Copy data from regular Python 2D array (list of lists) into the Board.
 
 - `create_output(**kwargs)`<br>
@@ -262,7 +262,7 @@ For a full example using AudioPlayer, see [Kill the Mosquito](https://github.com
 ## What's in the roadmap? 
 
 - `save_file(filename)` : Dump array data to a file
-- `load_file(filename)` : Restore array data from file
+- `read_file(filename)` : Restore array data from file
 - `redim(new_ncols, new_nrows)` : Useful to grow or shrink the board, for example, on level up.
 
 ## How to Contribute

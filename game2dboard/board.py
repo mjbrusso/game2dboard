@@ -471,13 +471,13 @@ class Board(UserList):
         else:
             raise Exception("Invalid argument supplied (row= AND col=)")
 
-    def copy_data(self):
+    def copy(self):
         """
         Returns a shallow copy of the array (only data, not the GUI) into a regular Python list (of lists).  
         """
         return [[self[i][j] for j in range(self.ncols)] for i in range(self.nrows)]
 
-    def load_data(self, data):
+    def load(self, data):
         """
         Copy data from regular Python 2D array (list of lists) into the Board.  
         """
