@@ -1,5 +1,5 @@
 
-# <img align="left" width="80" height="80" style="padding-right:50" src="images/logo80x80.png"> &nbsp;&nbsp;game2dboard  
+# <img align="left" width="80" height="80" style="padding-right:50" src="https://raw.githubusercontent.com/mjbrusso/game2dboard/master/images/logo80x80.png"> &nbsp;&nbsp;game2dboard  
 
 <BR CLEAR="left" /> 
 
