@@ -407,7 +407,7 @@ class Board(UserList):
 
         Close the board, exiting the program.
         """
-        self._root.quit()
+        self._root.destroy()
 
     def create_output(self, **kwargs):
         """

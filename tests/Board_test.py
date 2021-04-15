@@ -156,7 +156,7 @@ class TestBoard(unittest.TestCase):
         for i in range(len(bc)):
             self.assertEqual(len(bc[i]), b.ncols)
             for j in range(len(bc[i])):
-                self.assertEqual(bc[i][j], (i+1) * (j+5))
+                self.assertEqual(bc[i][j], b[i][j])
 
     def test_load(self):
         b = Board(2, 2)

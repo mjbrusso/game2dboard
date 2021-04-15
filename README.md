@@ -261,6 +261,7 @@ For a full example using AudioPlayer, see [Kill the Mosquito](https://github.com
 
 ## What's in the roadmap? 
 
+- `on_mouse_over = function(button: int, row: int, column: int)`  : event occurs when the mouse pointer is moved onto an cell (maybe with a button pressed)
 - `save_file(filename)` : Dump array data to a file
 - `read_file(filename)` : Restore array data from file
 - `redim(new_ncols, new_nrows)` : Useful to grow or shrink the board, for example, on level up.

@@ -48,7 +48,7 @@ def start():
     time = 1000
     game.start_timer(time)
     timer()
-    mosquito_sound.play(loop=True)
+    mosquito_sound.play()
     mosquito_sound.volume = 30
 
 
